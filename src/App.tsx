@@ -7,6 +7,7 @@ import "./App.scss";
 
 const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isSidebarHidden, setIsSidebarHidden] = useState(false);
 
   const toggleTheme = (theme: string): void => {
     if (theme === "dark") {
@@ -20,8 +21,16 @@ const App = () => {
 
   return (
     <div className={`board-container ${isDarkTheme ? "dark" : "light"}`}>
-      <Nav isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
-      <Board />
+      <Nav
+        isDarkTheme={isDarkTheme}
+        toggleTheme={toggleTheme}
+        isSidebarHidden={isSidebarHidden}
+        setIsSidebarHidden={setIsSidebarHidden}
+      />
+      <Board
+        isSidebarHidden={isSidebarHidden}
+        setIsSidebarHidden={setIsSidebarHidden}
+      />
     </div>
   );
 };

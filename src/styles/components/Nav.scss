@@ -7,6 +7,10 @@ aside {
   border-right: 1px solid #3e3f4e;
 }
 
+.hide {
+  display: none;
+}
+
 .logo {
   padding: 34px;
 }
@@ -37,8 +41,8 @@ aside {
     cursor: pointer;
 
     &:active {
-      background: #635fc7;
-      color: #ffffff !important;
+      background: #ffffff;
+      color: #635fc7 !important;
 
       + .board-icon {
         fill: #ffffff !important;
@@ -79,6 +83,10 @@ aside {
   .hide-navbar-icon {
     margin-left: 7px;
     margin-right: 15px;
+  }
+
+  h4 {
+    cursor: pointer;
   }
 }
 /* Styles for toggle switch */

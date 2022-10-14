@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import LogoDark from "./svgs/LogoDark";
 import LogoLight from "./svgs/LogoLight";
 import DarkThemeIcon from "./svgs/DarkThemeIcon";
@@ -11,12 +11,16 @@ import HideNavbarIcon from "./svgs/HideNavbarIcon";
 const Nav = ({
   isDarkTheme,
   toggleTheme,
+  isSidebarHidden,
+  setIsSidebarHidden,
 }: {
   isDarkTheme: boolean;
   toggleTheme: (theme: string) => void;
+  isSidebarHidden: boolean;
+  setIsSidebarHidden: (state: boolean) => void;
 }) => {
   return (
-    <aside>
+    <aside className={isSidebarHidden ? "hide" : ""}>
       <div>
         {isDarkTheme ? (
           <LogoLight className="logo" />
@@ -24,7 +28,7 @@ const Nav = ({
           <LogoDark className="logo" />
         )}
         <div className="menu">
-          <h4>All Boards (8)</h4>
+          <h4>All Boards (3)</h4>
         </div>
         <ul className="items">
           <li>
@@ -57,7 +61,7 @@ const Nav = ({
           </label>
           <DarkThemeIcon onClick={() => toggleTheme("dark")} />
         </div>
-        <h4>
+        <h4 onClick={() => setIsSidebarHidden((prev) => !prev)}>
           <HideNavbarIcon className="hide-navbar-icon" />
           Hide Sidebar
         </h4>
