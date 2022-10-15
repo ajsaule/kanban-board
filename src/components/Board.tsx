@@ -1,9 +1,9 @@
 import React from "react";
-import Banner from "../components/Banner";
+import Banner from "./Banner";
 
 import HideNavbarIcon from "./svgs/HideNavbarIcon";
 
-import "../styles/components/Board.scss";
+import styles from "../styles/components/Board.module.scss";
 
 const Board = ({
   isSidebarHidden,
@@ -15,11 +15,11 @@ const Board = ({
   return (
     <div style={{ width: "100%" }}>
       <Banner />
-      <div className="board">
+      <div className={styles["board"]}>
         {isSidebarHidden && (
           <div
-            onClick={() => setIsSidebarHidden((prev) => !prev)}
-            className="hide-navbar-tab"
+            // onClick={() => setIsSidebarHidden((prev) => !prev)}
+            className={styles["hide-navbar-tab"]}
           >
             <HideNavbarIcon />
           </div>

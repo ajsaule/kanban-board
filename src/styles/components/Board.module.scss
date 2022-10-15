@@ -1,0 +1,19 @@
+.board {
+  width: 100%;
+  background: #20212c;
+  height: 90%;
+}
+
+.hide-navbar-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 56px;
+  height: 48px;
+  left: 0px;
+  top: 944px;
+  background: #a8a4ff;
+  border-radius: 0px 100px 100px 0px;
+  cursor: pointer;
+}
