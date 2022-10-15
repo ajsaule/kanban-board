@@ -5,7 +5,7 @@ import DarkThemeIcon from "./svgs/DarkThemeIcon";
 import LightThemeIcon from "./svgs/LightThemeIcon";
 import IconBoard from "./svgs/IconBoard";
 
-import "../styles/components/Nav.scss";
+import styles from "../styles/components/Nav.module.scss";
 import HideNavbarIcon from "./svgs/HideNavbarIcon";
 
 const Nav = ({
@@ -23,48 +23,48 @@ const Nav = ({
     <aside className={isSidebarHidden ? "hide" : ""}>
       <div>
         {isDarkTheme ? (
-          <LogoLight className="logo" />
+          <LogoLight className={styles["logo"]} />
         ) : (
-          <LogoDark className="logo" />
+          <LogoDark className={styles["logo"]} />
         )}
-        <div className="menu">
+        <div className={styles["menu"]}>
           <h4>All Boards (3)</h4>
         </div>
-        <ul className="items">
+        <ul className={styles["items"]}>
           <li>
-            <IconBoard className="board-icon" />
+            <IconBoard className={styles["board-icon"]} />
             Platform Launch
           </li>
           <li>
-            <IconBoard className="board-icon" />
+            <IconBoard className={styles["board-icon"]} />
             Marketing Plan
           </li>
           <li>
-            <IconBoard className="board-icon" />
+            <IconBoard className={styles["board-icon"]} />
             Roadmap
           </li>
           <li>
-            <IconBoard className="board-icon" />+ Create New Board
+            <IconBoard className={styles["board-icon"]} />+ Create New Board
           </li>
         </ul>
       </div>
-      <div className="toggle-menu">
-        <div className="page-theme-container">
+      <div className={styles["toggle-menu"]}>
+        <div className={styles["page-theme-container"]}>
           <LightThemeIcon onClick={() => toggleTheme("light")} />
-          <label className="switch">
+          <label className={styles["switch"]}>
             <input
               type="checkbox"
               checked={isDarkTheme}
               onClick={() => toggleTheme("")}
             />
-            <span className="slider round"></span>
+            <span className={`${styles["slider"]} ${styles["round"]}`}></span>
           </label>
           <DarkThemeIcon onClick={() => toggleTheme("dark")} />
         </div>
-        <h4 onClick={() => setIsSidebarHidden((prev) => !prev)}>
-          <HideNavbarIcon className="hide-navbar-icon" />
+        {/*         <h4 onClick={() => setIsSidebarHidden((prev) => !prev)}>
+          <HideNavbarIcon className={styles["hide-navbar-icon"]} />
           Hide Sidebar
-        </h4>
+        </h4> */}
       </div>
     </aside>
   );
