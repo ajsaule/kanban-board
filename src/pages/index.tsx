@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Board from "../components/Board";
 import Nav from "../components/Nav";
+
 // import HideNavbarIcon from "../components/svgs/HideNavbarIcon";
 
 function HomePage() {

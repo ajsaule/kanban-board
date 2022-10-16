@@ -1,18 +1,41 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap");
+@use "sass:math";
+@use "./abstract/variables" as *;
+@use "./themes";
+@use "./base";
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap");
+
+:root {
+  // CONSTANT COLOR VARIABLES
+  --color-primary: #{$color-purple};
+  --color-primary-light: #{$color-purple-light};
+  --color-secondary: #{$color-red};
+  --color-secondary-light: #{$color-red-light};
+  --color-white: #{$color-white};
+  --color-medium-grey: #{$color-grey-1};
+
+  // DEFAULT THEME
+  @include themes.light-theme;
+}
+
+html {
+  // Converting 10px into percentage %
+  font-size: math.div(100, 16) * 10%;
+  //62.5% = 10px
+  // font-size: 10px;
+}
 
 body {
-  margin: 0;
-  font-family: "Plus Jakarta Sans";
-  font-style: normal;
-  font-weight: 700;
-  color: #828fa3;
+  font: $font-weight $font-size $font-primary;
+  color: var(--color-text);
+  line-height: $line-height;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+// When this class is added on body
+.dark-theme {
+  @include themes.dark-theme;
 }
 
 .board-container {
@@ -20,11 +43,7 @@ code {
   height: 100vh;
 }
 
-.dark {
-  // the app has dark theme colors set as default
-}
-
-.light {
+/* .light {
   aside {
     border-right: 1px solid #e3ebfa;
     background: white;
@@ -47,3 +66,4 @@ code {
     background: #f4f7fd;
   }
 }
+ */
