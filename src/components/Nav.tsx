@@ -20,7 +20,9 @@ const Nav = ({
   setIsSidebarHidden: (state: boolean) => void;
 }) => {
   return (
-    <aside className={isSidebarHidden ? "hide" : ""}>
+    <aside
+      className={`${styles["nav-bar"]} ${isSidebarHidden && styles["hide"]}`}
+    >
       <div>
         {isDarkTheme ? (
           <LogoLight className={styles["logo"]} />
@@ -61,10 +63,10 @@ const Nav = ({
           </label>
           <DarkThemeIcon onClick={() => toggleTheme("dark")} />
         </div>
-        {/*         <h4 onClick={() => setIsSidebarHidden((prev) => !prev)}>
+        <h4 onClick={() => setIsSidebarHidden((prev) => !prev)}>
           <HideNavbarIcon className={styles["hide-navbar-icon"]} />
           Hide Sidebar
-        </h4> */}
+        </h4>
       </div>
     </aside>
   );
