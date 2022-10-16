@@ -1,0 +1,27 @@
+@use "../abstract/variables" as *;
+
+// Light
+@mixin light-theme {
+  --color-bg: #{$color-grey-3}; // App BG
+  --color-light: #{$color-white}; // Components BG (White)
+  --color-grey: #{$color-grey-1}; // Components Heading (Text field)
+  --color-text: #{$color-black};
+  --color-gradient: linear-gradient(
+    180deg,
+    #e9effa 0%,
+    rgba(233, 239, 250, 0.5) 100%
+  ); // As Background (column background)
+}
+
+// Dark
+@mixin dark-theme {
+  --color-bg: #{$color-dark-1};
+  --color-light: #{$color-dark-2};
+  --color-grey: #{$color-white};
+  --color-text: #{$color-white};
+  --color-gradient: linear-gradient(
+    180deg,
+    rgba(43, 44, 55, 0.25) 0%,
+    rgba(43, 44, 55, 0.125) 100%
+  );
+}

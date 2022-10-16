@@ -1,0 +1,35 @@
+@use "../abstract/variables" as *;
+
+// HEADINGS
+.h-xl {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.h-l {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.28;
+}
+
+.h-m {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.27;
+}
+
+.h-s {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 4px; // 2px
+}
+
+// BODY
+
+.body-m {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+}

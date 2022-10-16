@@ -1,0 +1,38 @@
+@use "sass:math";
+
+// FONTS
+$font-primary: "Plus Jakarta Sans", sans-serif;
+$font-weight: 500;
+$font-size: 1.3rem;
+$line-height: 1.77;
+
+// COLORS
+$color-purple: #635fc7;
+$color-purple-light: #a8a4ff;
+$color-red: #ea5555;
+$color-red-light: #ff9898;
+$color-black: #000112;
+$color-dark-1: #20212c; // BG
+$color-dark-2: #2b2c37;
+$color-dark-3: #3e3f4e; // Lines
+$color-grey-1: #828fa3;
+$color-grey-2: #e4ebfa; // Lines
+$color-grey-3: #f4f7fd; // BG
+$color-white: #ffffff;
+
+// BREAK POINTS
+
+// $*-sm: break points are customizable according to the design
+$lg: math.div(1200, 16) * 1em; // LAPTOP
+$lg-sm: math.div(1024, 16) * 1em;
+$md: math.div(768, 16) * 1em; // TABLET
+$md-sm: math.div(480, 16) * 1em;
+$sm: math.div(375, 16) * 1em; // MOBILE
+$sm-sm: math.div(320, 16) * 1em;
+
+/* 
+Converting px into em:
+1em = 16px
+1 / 16px = 1px
+1200 / 16 em = 1200px
+*/

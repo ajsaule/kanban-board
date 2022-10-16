@@ -10,7 +10,7 @@ const Board = ({
   setIsSidebarHidden,
 }: {
   isSidebarHidden: boolean;
-  setIsSidebarHidden: () => void;
+  setIsSidebarHidden: (prev: boolean) => void;
 }) => {
   return (
     <div style={{ width: "100%" }}>
@@ -18,7 +18,7 @@ const Board = ({
       <div className={styles["board"]}>
         {isSidebarHidden && (
           <div
-            // onClick={() => setIsSidebarHidden((prev) => !prev)}
+            onClick={() => setIsSidebarHidden((prev) => !prev)}
             className={styles["hide-navbar-tab"]}
           >
             <HideNavbarIcon />
