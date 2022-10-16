@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Board from "../components/Board";
-import HideNavbarIcon from "../components/svgs/HideNavbarIcon";
+import Nav from "../components/Nav";
+// import HideNavbarIcon from "../components/svgs/HideNavbarIcon";
 
 function HomePage() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -18,7 +19,7 @@ function HomePage() {
 
   return (
     <div className={`board-container ${isDarkTheme ? "dark" : "light"}`}>
-      <HideNavbarIcon
+      <Nav
         isDarkTheme={isDarkTheme}
         toggleTheme={toggleTheme}
         isSidebarHidden={isSidebarHidden}
