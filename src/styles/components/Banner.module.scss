@@ -14,10 +14,11 @@
 
 .button-wrapper {
   display: flex;
-  margin-right: 33px;
+  margin-right: 3.3rem;
+  align-items: center;
 
   .vertical-ellipsis {
-    margin-left: 24px;
+    margin-left: 2.4rem;
     fill: var(--color-medium-grey);
   }
 }

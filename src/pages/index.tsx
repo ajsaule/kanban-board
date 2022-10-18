@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Board from "../components/Board";
-import Sidebar from "../components/SideBar";
+import Sidebar from "../components/Sidebar";
 
 // import HideNavbarIcon from "../components/svgs/HideNavbarIcon";
 

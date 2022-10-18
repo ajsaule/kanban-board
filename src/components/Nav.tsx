@@ -1,5 +1,5 @@
 import { getId } from "../utils/helper";
-import NavItem from "./NavItem";
+import NavItem from "./SidebarItem";
 import IconBoard from "./svgs/IconBoard";
 import styles from "../styles/components/Nav.module.scss";
 
@@ -9,15 +9,19 @@ const Nav = () => {
   return (
     <ul className={styles["nav"]}>
       {boards.map((board) => (
-        <NavItem key={getId()} onClick={() => {}}>
-          <IconBoard />
-          {board}
-        </NavItem>
+        <li key={getId()}>
+          <NavItem onClick={() => {}}>
+            <IconBoard />
+            {board}
+          </NavItem>
+        </li>
       ))}
 
-      <NavItem active variant="purple" onClick={() => {}}>
-        <IconBoard />+ Create New Board
-      </NavItem>
+      <li>
+        <NavItem active variant="purple" onClick={() => {}}>
+          <IconBoard />+ Create New Board
+        </NavItem>
+      </li>
     </ul>
   );
 };
