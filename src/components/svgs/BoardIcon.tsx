@@ -1,6 +1,6 @@
-import styles from "../../styles/components/IconBoard.module.scss";
+import styles from "../../styles/components/BoardIcon.module.scss";
 
-const IconBoard = ({ className }: { className?: string }) => (
+const BoardIcon = ({ className }: { className?: string }) => (
   <svg
     className={`${styles["board-icon"]} ${className}`}
     width={16}
@@ -11,4 +11,4 @@ const IconBoard = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default IconBoard;
+export default BoardIcon;
