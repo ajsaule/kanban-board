@@ -1,3 +1,12 @@
+@mixin btnReset {
+  display: inline-block;
+  text-decoration: none;
+  background: none;
+  border: none;
+  outline: none !important;
+  cursor: pointer;
+}
+
 @mixin flexCenter {
   display: flex;
   align-items: center;
