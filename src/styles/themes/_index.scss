@@ -2,6 +2,8 @@
 
 // Light
 @mixin light-theme {
+  --color-tertiary: #{$color-purple-grey}; // Secondary Buttons
+  --color-tertiary-light: #{$color-purple-grey-dark}; // Secondary Buttons Hover
   --color-bg: #{$color-grey-3}; // App BG
   --color-light: #{$color-white}; // Components BG (White)
   --color-grey: #{$color-grey-1}; // Components Heading (Text field)
@@ -16,6 +18,8 @@
 
 // Dark
 @mixin dark-theme {
+  --color-tertiary: #{$color-white};
+  --color-tertiary-light: #{$color-grey-2};
   --color-bg: #{$color-dark-1};
   --color-light: #{$color-dark-2};
   --color-grey: #{$color-white};

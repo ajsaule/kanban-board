@@ -3,7 +3,7 @@ import DarkLogo from "./svgs/DarkLogo";
 import LightLogo from "./svgs/LightLogo";
 import ThemeToggler from "./ThemeToggler";
 import HideNavbarIcon from "./svgs/HideNavbarIcon";
-import NavItem from "./NavItem";
+import NavItem from "./SidebarItem";
 import Logo from "./Logo";
 import Nav from "./Nav";
 import styles from "../styles/components/SideBar.module.scss";

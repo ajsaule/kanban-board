@@ -1,6 +1,6 @@
 import { getId } from "../utils/helper";
-import NavItem from "./NavItem";
 import BoardIcon from "./svgs/BoardIcon";
+import NavItem from "./SidebarItem";
 import styles from "../styles/components/Nav.module.scss";
 
 const Nav = () => {

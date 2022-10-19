@@ -1,4 +1,4 @@
-import styles from "../styles/components/NavItem.module.scss";
+import styles from "../styles/components/SidebarItem.module.scss";
 
 type PropsType = {
   children: string | React.ReactNode;
@@ -15,14 +15,14 @@ const NavItem = ({
   active = false,
   onClick,
 }: PropsType) => {
-  const classes = `h-m ${styles["nav-item"]} ${active ? styles.active : ""} ${
-    className ? className : ""
-  }  ${variant ? styles[variant] : ""}`;
+  const classes = `h-m ${styles["sidebar-item"]} ${
+    active ? styles.active : ""
+  } ${className ? className : ""}  ${variant ? styles[variant] : ""}`;
 
   return (
-    <li className={classes} onClick={onClick}>
+    <button className={classes} onClick={onClick}>
       {children}
-    </li>
+    </button>
   );
 };
 
