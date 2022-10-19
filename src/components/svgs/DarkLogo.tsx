@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const LogoDark = (props: any) => (
+const DarkLogo = (props: any) => (
   <svg width={153} height={26} xmlns="http://www.w3.org/2000/svg" {...props}>
     <g fill="none" fillRule="evenodd">
       <path
@@ -17,4 +17,4 @@ const LogoDark = (props: any) => (
   </svg>
 );
 
-export default LogoDark;
+export default DarkLogo;

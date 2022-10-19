@@ -1,6 +1,6 @@
 import React from "react";
-import LogoDark from "./svgs/LogoDark";
-import LogoLight from "./svgs/LogoLight";
+import DarkLogo from "./svgs/DarkLogo";
+import LightLogo from "./svgs/LightLogo";
 import ThemeToggler from "./ThemeToggler";
 import HideNavbarIcon from "./svgs/HideNavbarIcon";
 import NavItem from "./NavItem";
@@ -20,9 +20,9 @@ const SideBar = ({
       className={`${styles["side-bar"]} ${isSidebarHidden && styles["hide"]}`}
     >
       {/* {isDarkTheme ? (
-        <LogoLight className={styles["logo"]} />
+        <LightLogo className={styles["logo"]} />
       ) : (
-        <LogoDark className={styles["logo"]} />
+        <DarkLogo className={styles["logo"]} />
       )} */}
       <Logo className={styles["side-bar__logo"]}>kanban</Logo>
 
