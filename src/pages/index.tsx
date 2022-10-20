@@ -10,7 +10,7 @@ function HomePage() {
 
   return (
     <div className="board-container">
-      <Modal>
+      <Modal isHidden={false}>
         <h1>Hello world</h1>
       </Modal>
       <Sidebar
