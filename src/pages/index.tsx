@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Board from "../components/Board";
-import Sidebar from "../components/Sidebar";
+import Modal from "../components/Modal";
+import Sidebar from "../components/SideBar";
 
 // import HideNavbarIcon from "../components/svgs/HideNavbarIcon";
 
@@ -9,6 +10,9 @@ function HomePage() {
 
   return (
     <div className="board-container">
+      <Modal>
+        <h1>Hello world</h1>
+      </Modal>
       <Sidebar
         isSidebarHidden={isSidebarHidden}
         setIsSidebarHidden={setIsSidebarHidden}
