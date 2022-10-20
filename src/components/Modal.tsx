@@ -1,18 +1,31 @@
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import styles from "../styles/components/Modal.module.scss";
 
 type PropsType = {
   children: React.ReactNode;
-  isHidden: boolean;
   className?: string;
+  onClose: () => void;
 };
 
-const Modal = ({ children, isHidden, className }: PropsType) => {
-  const classNames = `${className} ${isHidden ? styles["hidden"] : ""}`;
+const Modal = ({ onClose, children, className }: PropsType) => {
+  const [isRendered, setIsRendered] = useState(false);
+  const classes = `${className} ${styles["modal"]}`;
+
+  useEffect(() => {
+    setIsRendered(true);
+  }, []);
 
   return (
-    <div className={`${styles["background"]} ${classNames}`}>
-      <div className={styles["modal"]}>{children}</div>;
-    </div>
+    <>
+      {isRendered &&
+        createPortal(
+          <div className={styles["background"]} onClick={onClose}>
+            <div className={classes}>{children}</div>
+          </div>,
+          document.getElementById("modal")!
+        )}
+    </>
   );
 };
 

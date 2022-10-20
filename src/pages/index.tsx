@@ -9,7 +9,7 @@ function HomePage() {
 
   return (
     <div className="board-container">
-      <Modal isHidden={false}>
+      <Modal onClose={() => {}}>
         <h1>Hello world</h1>
         <h4>Current Status</h4>
         <DropDown

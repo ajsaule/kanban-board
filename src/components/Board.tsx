@@ -1,8 +1,6 @@
 import React from "react";
 import Banner from "./Banner";
-
 import HideNavbarIcon from "./svgs/HideNavbarIcon";
-
 import styles from "../styles/components/Board.module.scss";
 
 const Board = ({
