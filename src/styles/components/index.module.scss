@@ -1,0 +1,23 @@
+.modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__heading {
+    font-size: 1.8rem;
+    line-height: 22.68px;
+  }
+  &__body {
+    font-size: 1.3rem;
+    line-height: 23px;
+    color: var(--color-grey);
+  }
+  &__subtasks {
+    color: var(--color-grey);
+    margin-bottom: 1.6rem;
+  }
+  &__status {
+    color: var(--color-grey);
+    margin-bottom: 0.8rem;
+  }
+}
