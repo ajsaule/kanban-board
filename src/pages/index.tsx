@@ -6,6 +6,7 @@ import DropDown from "../components/DropDown";
 import Modal from "../components/Modal";
 import Sidebar from "../components/SideBar";
 import VerticalEllipsis from "../components/svgs/VerticalEllipsis";
+import AddModalContext from "../store/add-modal";
 
 import EditModalContext from "../store/edit-modal";
 
@@ -14,6 +15,7 @@ import styles from "../styles/components/index.module.scss";
 function HomePage() {
   const [isSidebarHidden, setIsSidebarHidden] = useState(false);
   const { isEditOpen, onEditClose } = useContext(EditModalContext);
+  const { isAddOpen, onAddClose } = useContext(AddModalContext);
 
   return (
     <div className="board-container">
@@ -47,6 +49,11 @@ function HomePage() {
               ]}
             />
           </div>
+        </Modal>
+      )}
+      {isAddOpen && (
+        <Modal onClose={onAddClose}>
+          <h1>Hello world!</h1>
         </Modal>
       )}
       <Sidebar
