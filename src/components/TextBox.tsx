@@ -49,7 +49,7 @@ const TextBox = ({ placeholder = "", variant = "default"}): PropsType => {
           placeholder={placeholder} 
           onChange={(e) => handleSubtaskChange(e)}
         />
-        <SubtaskIcon className={styles["input-field__subtask__icon"]}/>
+        <SubtaskIcon className={styles["input-field__subtask__icon"]} onClick={() => console.log("remove task")}/>
       </div>
     )
   }
