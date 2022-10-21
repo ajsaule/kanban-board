@@ -14,7 +14,7 @@ type PropTypes = {
       ];
 };
 
-export const DropDown = ({ defaultValue, options }: PropTypes) => {
+const DropDown = ({ defaultValue, options }: PropTypes) => {
   const { isDark } = useContext(ThemeContext);
 
   const colorStyles:
@@ -38,7 +38,7 @@ export const DropDown = ({ defaultValue, options }: PropTypes) => {
       background: isSelected ? "#635FC7" : "",
       "&:hover": {
         background: "#635FC7",
-        opacity: "0.7",
+        opacity: "0.25",
         cursor: "pointer",
       },
     }),
@@ -74,3 +74,5 @@ export const DropDown = ({ defaultValue, options }: PropTypes) => {
     />
   );
 };
+
+export default DropDown;

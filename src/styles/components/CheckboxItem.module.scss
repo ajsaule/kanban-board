@@ -26,8 +26,8 @@
     -webkit-appearance: none;
     height: 1.6rem;
     min-width: 1.6rem;
-    background: #2b2c37;
-    border: 1px solid rgba(130, 143, 163, 0.248914);
+    background: var(--color-light);
+    border: 1px solid var(--color-medium-grey-opacity);
     border-radius: 2px;
   }
 
