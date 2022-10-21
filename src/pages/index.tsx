@@ -1,13 +1,15 @@
 import { useContext, useState } from "react";
 
 import Board from "../components/Board";
+import Button from "../components/Button";
 import CheckboxItem from "../components/CheckboxItem";
-import DropDown from "../components/DropDown";
+import Dropdown from "../components/Dropdown";
 import Modal from "../components/Modal";
 import Sidebar from "../components/SideBar";
 import VerticalEllipsis from "../components/svgs/VerticalEllipsis";
-import AddModalContext from "../store/add-modal";
+import TextBox from "../components/TextBox";
 
+import AddModalContext from "../store/add-modal";
 import EditModalContext from "../store/edit-modal";
 
 import styles from "../styles/components/index.module.scss";
@@ -41,7 +43,7 @@ function HomePage() {
           </div>
           <div>
             <h4 className={styles["modal-wrapper__status"]}>Current Status</h4>
-            <DropDown
+            <Dropdown
               options={[
                 { value: "todo", label: "Todo" },
                 { value: "doing", label: "Doing" },
@@ -52,8 +54,39 @@ function HomePage() {
         </Modal>
       )}
       {isAddOpen && (
-        <Modal onClose={onAddClose}>
-          <h1>Hello world!</h1>
+        <Modal className={styles["modal-wrapper"]} onClose={onAddClose}>
+          <h1 className={styles["modal-wrapper__heading"]}>Add New Task</h1>
+          <div>
+            <h4>Title</h4>
+            <TextBox variant="title"/>
+          </div>
+          <div>
+            <h4>Description</h4>
+            <TextBox variant="description" placeholder="e.g. It’s always good to take a break. This 15 minute break will 
+              recharge the batteries a little."
+            />
+          </div>
+          <div>
+            <h4>Subtasks</h4>
+            <TextBox placeholder="e.g. Make coffee" variant="subtask"/>
+            <TextBox placeholder="e.g. Make coffee" variant="subtask"/>
+            <Button color="secondary" fullWidth={true} className={styles["secondary-button"]}>
+              <span>+ Add New Subtask</span>
+            </Button>
+          </div>
+          <div>
+            <h4 className={styles["modal-wrapper__status"]}>Status</h4>
+            <Dropdown
+              options={[
+                { value: "todo", label: "Todo" },
+                { value: "doing", label: "Doing" },
+                { value: "done", label: "Done" },
+              ]}
+            />
+          </div>
+          <Button variant="primary">
+              <span>Save Changes</span>
+          </Button>
         </Modal>
       )}
       <Sidebar
