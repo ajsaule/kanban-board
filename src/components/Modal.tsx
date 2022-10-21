@@ -20,9 +20,10 @@ const Modal = ({ onClose, children, className }: PropsType) => {
     <>
       {isRendered &&
         createPortal(
-          <div className={styles["background"]} onClick={onClose}>
+          <>
+            <div className={styles["background"]} onClick={onClose}></div>
             <div className={classes}>{children}</div>
-          </div>,
+          </>,
           document.getElementById("modal")!
         )}
     </>
