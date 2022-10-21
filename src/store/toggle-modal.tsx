@@ -1,12 +1,12 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 
-type ToggleModalType = {
+type ModalType = {
   isOpen: boolean;
   toggleModal: () => void;
   onClose: () => void;
 };
 
-const ToggleModalContext = createContext<ToggleModalType>({
+const ModalContext = createContext<ModalType>({
   isOpen: false,
   toggleModal: () => {},
   onClose: () => {},
@@ -14,7 +14,7 @@ const ToggleModalContext = createContext<ToggleModalType>({
 
 type PropsType = { children: React.ReactNode };
 
-export const ToggleModalProvider = ({ children }: PropsType) => {
+export const ModalProvider = ({ children }: PropsType) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = () => setIsOpen((prev) => !prev);
@@ -22,7 +22,7 @@ export const ToggleModalProvider = ({ children }: PropsType) => {
   const onClose = () => setIsOpen(false);
 
   return (
-    <ToggleModalContext.Provider
+    <ModalContext.Provider
       value={{
         isOpen,
         toggleModal,
@@ -30,8 +30,8 @@ export const ToggleModalProvider = ({ children }: PropsType) => {
       }}
     >
       {children}
-    </ToggleModalContext.Provider>
+    </ModalContext.Provider>
   );
 };
 
-export default ToggleModalContext;
+export default ModalContext;

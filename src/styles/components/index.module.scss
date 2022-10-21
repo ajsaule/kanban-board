@@ -4,8 +4,17 @@
   gap: 24px;
 
   &__heading {
+    display: flex;
+    align-items: center;
     font-size: 1.8rem;
     line-height: 22.68px;
+
+    svg {
+      cursor: pointer;
+      min-width: 24px;
+      padding-left: 19px;
+      fill: #828fa3;
+    }
   }
   &__body {
     font-size: 1.3rem;

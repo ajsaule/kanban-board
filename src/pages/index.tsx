@@ -5,6 +5,7 @@ import CheckboxItem from "../components/CheckboxItem";
 import DropDown from "../components/DropDown";
 import Modal from "../components/Modal";
 import Sidebar from "../components/SideBar";
+import VerticalEllipsis from "../components/svgs/VerticalEllipsis";
 
 import ToggleModalContext from "../store/toggle-modal";
 
@@ -21,6 +22,7 @@ function HomePage() {
           <h1 className={styles["modal-wrapper__heading"]}>
             Research pricing points of various competitors and trial different
             business models
+            <VerticalEllipsis />
           </h1>
           <p className={styles["modal-wrapper__body"]}>
             We know what we're planning to build for version one. Now we need to
