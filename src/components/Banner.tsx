@@ -3,11 +3,11 @@ import VerticalEllipsis from "./svgs/VerticalEllipsis";
 import Button from "./Button";
 import styles from "../styles/components/Banner.module.scss";
 import Modal from "./Modal";
-import EditModalContext from "../store/edit-modal";
+import EditModalContext from "../store/view-modal";
 import AddModalContext from "../store/add-modal";
 
 const Banner = () => {
-  const { toggleEditModal } = useContext(EditModalContext);
+  const { toggleViewModal } = useContext(EditModalContext);
   const { toggleAddModal } = useContext(AddModalContext);
 
   return (
@@ -18,7 +18,7 @@ const Banner = () => {
           + Add New Task
         </Button>
         <VerticalEllipsis
-          onClick={toggleEditModal}
+          onClick={toggleViewModal}
           className={styles["vertical-ellipsis"]}
         />
       </div>
