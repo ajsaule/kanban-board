@@ -1,6 +1,6 @@
 import React from "react";
 import Banner from "./Banner";
-import HideNavbarIcon from "./svgs/HideNavbarIcon";
+import ShowNavbarIcon from "./svgs/ShowNavbarIcon";
 import styles from "../styles/components/Board.module.scss";
 
 const Board = ({
@@ -19,7 +19,7 @@ const Board = ({
             onClick={() => setIsSidebarHidden((prev) => !prev)}
             className={styles["hide-navbar-tab"]}
           >
-            <HideNavbarIcon />
+            <ShowNavbarIcon />
           </div>
         )}
       </div>

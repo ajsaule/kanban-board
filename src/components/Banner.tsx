@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import VerticalEllipsis from "./svgs/VerticalEllipsis";
 import Button from "./Button";
 import styles from "../styles/components/Banner.module.scss";
 import Modal from "./Modal";
+import ToggleModalContext from "../store/edit-modal";
 
 const Banner = () => {
   const [showAddTask, setShowAddTask] = useState(false);
+  const { toggleEditModal } = useContext(ToggleModalContext);
 
   return (
     <div className={styles["banner"]}>
@@ -14,7 +16,10 @@ const Banner = () => {
         <Button onClick={() => setShowAddTask(true)} size="large">
           + Add New Task
         </Button>
-        <VerticalEllipsis className={styles["vertical-ellipsis"]} />
+        <VerticalEllipsis
+          onClick={toggleEditModal}
+          className={styles["vertical-ellipsis"]}
+        />
       </div>
       {showAddTask && (
         <Modal onClose={setShowAddTask.bind(null, false)}>ADD NEW TASK</Modal>

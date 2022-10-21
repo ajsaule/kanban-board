@@ -13,6 +13,7 @@
   --color-secondary-light: #{$color-red-light};
   --color-white: #{$color-white};
   --color-medium-grey: #{$color-grey-1};
+  --color-medium-grey-opacity: #{$color-grey-1-opacity};
 
   // DEFAULT THEME
   @include themes.light-theme;
