@@ -1,14 +1,14 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "../store/theme";
-import { ModalProvider } from "../store/toggle-modal";
+import { EditModalProvider } from "../store/edit-modal";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider>
-      <ModalProvider>
+      <EditModalProvider>
         <Component {...pageProps} />
-      </ModalProvider>
+      </EditModalProvider>
     </ThemeProvider>
   );
 }

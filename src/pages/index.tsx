@@ -7,18 +7,18 @@ import Modal from "../components/Modal";
 import Sidebar from "../components/SideBar";
 import VerticalEllipsis from "../components/svgs/VerticalEllipsis";
 
-import ToggleModalContext from "../store/toggle-modal";
+import EditModalContext from "../store/edit-modal";
 
 import styles from "../styles/components/index.module.scss";
 
 function HomePage() {
   const [isSidebarHidden, setIsSidebarHidden] = useState(false);
-  const { isOpen, onClose } = useContext(ToggleModalContext);
+  const { isEditOpen, onEditClose } = useContext(EditModalContext);
 
   return (
     <div className="board-container">
-      {isOpen && (
-        <Modal className={styles["modal-wrapper"]} onClose={onClose}>
+      {isEditOpen && (
+        <Modal className={styles["modal-wrapper"]} onClose={onEditClose}>
           <h1 className={styles["modal-wrapper__heading"]}>
             Research pricing points of various competitors and trial different
             business models
