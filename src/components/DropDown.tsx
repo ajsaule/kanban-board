@@ -37,8 +37,7 @@ const DropDown = ({ defaultValue, options }: PropTypes) => {
       padding: "8px 12px",
       background: isSelected ? "#635FC7" : "",
       "&:hover": {
-        background: "#635FC7",
-        opacity: "0.25",
+        background: "#625fc73d",
         cursor: "pointer",
       },
     }),
