@@ -1,0 +1,41 @@
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  background: var(--color-bg);
+  border-radius: 0.4rem;
+  margin-bottom: 0.8rem;
+  padding: 1.3rem;
+
+  &:hover {
+    cursor: pointer;
+    background: var(--color-primary);
+    mix-blend-mode: normal;
+    opacity: 0.25;
+    border-radius: 0.4rem;
+  }
+
+  .text-checked {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  input[type="checkbox"] {
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 1.6rem;
+    min-width: 1.6rem;
+    background: #2b2c37;
+    border: 1px solid rgba(130, 143, 163, 0.248914);
+    border-radius: 2px;
+  }
+
+  input[type="checkbox"]:checked {
+    border: none;
+    background: var(--color-primary);
+    background-image: url("../../../public//assets/icon-checkbox-tick.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
