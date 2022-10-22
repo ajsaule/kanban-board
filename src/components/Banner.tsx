@@ -3,27 +3,25 @@ import VerticalEllipsis from "./svgs/VerticalEllipsis";
 import Button from "./Button";
 import styles from "../styles/components/Banner.module.scss";
 import Modal from "./Modal";
-import ToggleModalContext from "../store/edit-modal";
+import EditModalContext from "../store/view-modal";
+import AddModalContext from "../store/add-modal";
 
 const Banner = () => {
-  const [showAddTask, setShowAddTask] = useState(false);
-  const { toggleEditModal } = useContext(ToggleModalContext);
+  const { toggleViewModal } = useContext(EditModalContext);
+  const { toggleAddModal } = useContext(AddModalContext);
 
   return (
     <div className={styles["banner"]}>
       <h1 className={`h-xl ${styles["banner__heading"]}`}>Platform Launch</h1>
       <div className={styles["button-wrapper"]}>
-        <Button onClick={() => setShowAddTask(true)} size="large">
+        <Button onClick={toggleAddModal} size="large">
           + Add New Task
         </Button>
         <VerticalEllipsis
-          onClick={toggleEditModal}
+          onClick={toggleViewModal}
           className={styles["vertical-ellipsis"]}
         />
       </div>
-      {showAddTask && (
-        <Modal onClose={setShowAddTask.bind(null, false)}>ADD NEW TASK</Modal>
-      )}
     </div>
   );
 };

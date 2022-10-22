@@ -1,35 +1,62 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import data from "../../data.json"
+import data from "../../data.json";
 
 type BoardType = {
-  board: {};
+  boardData: {};
   hasBoards: boolean;
-  setBoard: () => void;
+  hasColumns: boolean;
+  boardNames: string[];
+  columnNames: string[];
+  columns: [{}];
+  setBoardData: (data: {}) => void;
+  setSelectedBoard: (board: {}) => void;
+  selectedBoard: {};
 };
 
 const BoardContext = createContext<BoardType>({
-  board: {},
+  boardData: {},
   hasBoards: false,
-  setBoard: () => {},
+  hasColumns: false,
+  boardNames: [],
+  columnNames: [],
+  columns: [{}],
+  setBoardData: (data) => {},
+  setSelectedBoard: (board) => {},
+  selectedBoard: {},
 });
 
 type PropsType = { children: React.ReactNode };
 
 export const BoardProvider = ({ children }: PropsType) => {
-  const [board, setBoard] = useState(data);
-  
-  const hasBoards = board.boards.length > 0
+  const [boardData, setBoardData] = useState(data);
+  const [selectedBoard, setSelectedBoard] = useState({ board: "", idx: -1 });
 
   useEffect(() => {
     // Use react query to push changes to backend eventually
-  }, [board])
+  }, [boardData]);
+
+  const hasBoards = boardData.boards.length > 0;
+  const hasColumns = boardData.boards[selectedBoard.idx]?.columns.length > 0;
+
+  const boardNames = boardData.boards.map((board) => board.name);
+  const columnNames = boardData.boards[selectedBoard.idx]?.columns.map(
+    (column) => column.name
+  );
+
+  const columns = boardData.boards[selectedBoard.idx]?.columns;
 
   return (
     <BoardContext.Provider
       value={{
-        board,
+        boardData,
         hasBoards,
-        setBoard,
+        hasColumns,
+        boardNames,
+        columnNames,
+        columns,
+        selectedBoard,
+        setBoardData,
+        setSelectedBoard,
       }}
     >
       {children}
