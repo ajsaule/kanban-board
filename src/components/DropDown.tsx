@@ -1,17 +1,11 @@
 import React, { useContext } from "react";
 import Select, { StylesConfig, GroupBase, OptionsOrGroups } from "react-select";
+import { OptionType } from "../models/type";
 import ThemeContext from "../store/theme";
 
 type PropTypes = {
   defaultValue?: string;
-  options:
-    | OptionsOrGroups<string, GroupBase<string>>
-    | undefined
-    | [
-        { value: string; label: string },
-        { value: string; label: string },
-        { value: string; label: string }
-      ];
+  options: OptionType[];
 };
 
 const Dropdown = ({ defaultValue, options }: PropTypes) => {
@@ -67,7 +61,10 @@ const Dropdown = ({ defaultValue, options }: PropTypes) => {
   return (
     <Select
       isSearchable={false}
-      defaultValue={defaultValue}
+      // defaultValue={defaultValue}
+      onChange={(option) => {
+        console.log(option);
+      }}
       options={options}
       styles={colorStyles}
     />

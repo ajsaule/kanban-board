@@ -1,18 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext } from "react";
+import CheckboxItem from "./CheckboxItem";
+import Dropdown from "./Dropdown";
+import Modal from "./Modal";
+import VerticalEllipsis from "./svgs/Dots";
+import ViewModalContext from "../store/view-modal";
 
-import CheckboxItem from './CheckboxItem';
-import Dropdown from './Dropdown';
-import Modal from './Modal';
-import VerticalEllipsis from './svgs/VerticalEllipsis';
-import ViewModalContext from '../store/view-modal';
-
-import styles from "../styles/components/TaskModalView.module.scss"
+import styles from "../styles/components/TaskModalView.module.scss";
+import { OptionType } from "../models/type";
 
 const TaskModalView = () => {
   const { isViewOpen, onViewClose } = useContext(ViewModalContext);
 
-    return (
-      <>
+  const options: OptionType[] = [
+    { value: "todo", label: "Todo" },
+    { value: "doing", label: "Doing" },
+    { value: "done", label: "Done" },
+  ];
+
+  return (
+    <>
       {isViewOpen && (
         <Modal className={styles["modal-wrapper"]} onClose={onViewClose}>
           <h1 className={styles["modal-wrapper__heading"]}>
@@ -35,18 +41,12 @@ const TaskModalView = () => {
           </div>
           <div>
             <h4 className={styles["modal-wrapper__status"]}>Current Status</h4>
-            <Dropdown
-              options={[
-                { value: "todo", label: "Todo" },
-                { value: "doing", label: "Doing" },
-                { value: "done", label: "Done" },
-              ]}
-            />
+            <Dropdown options={options} />
           </div>
         </Modal>
       )}
-      </>
-    )
-}
+    </>
+  );
+};
 
-export default TaskModalView
+export default TaskModalView;
