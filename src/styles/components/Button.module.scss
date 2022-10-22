@@ -10,6 +10,11 @@
   border-radius: 20px;
   transition: all 0.2s;
 
+  &.transparent {
+    color: var(--color-text);
+    background-color: transparent;
+  }
+
   // COLORS
   &.primary {
     color: var(--color-white);
@@ -41,6 +46,27 @@
     &:hover,
     &:active {
       background-color: var(--color-secondary-light);
+    }
+  }
+
+  &.dots {
+    // width: 2rem;
+    padding: 0;
+    padding: 1rem;
+    background: transparent;
+
+    & > * {
+      fill: var(--color-medium-grey);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: transparent;
+
+      & > * {
+        fill: var(--color-text);
+      }
     }
   }
 

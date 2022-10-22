@@ -16,17 +16,13 @@
       fill: #828fa3;
     }
   }
-  &__body {
-    font-size: 1.3rem;
-    line-height: 23px;
-    color: var(--color-grey);
-  }
-  &__subtasks {
-    color: var(--color-grey);
-    margin-bottom: 1.6rem;
-  }
+
   &__status {
     color: var(--color-grey);
     margin-bottom: 0.8rem;
+  }
+
+  .secondary-button {
+    margin-top: 12px;
   }
 }

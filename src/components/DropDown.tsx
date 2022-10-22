@@ -14,7 +14,7 @@ type PropTypes = {
       ];
 };
 
-const DropDown = ({ defaultValue, options }: PropTypes) => {
+const Dropdown = ({ defaultValue, options }: PropTypes) => {
   const { isDark } = useContext(ThemeContext);
 
   const colorStyles:
@@ -74,4 +74,4 @@ const DropDown = ({ defaultValue, options }: PropTypes) => {
   );
 };
 
-export default DropDown;
+export default Dropdown;
