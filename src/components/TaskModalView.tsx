@@ -7,6 +7,7 @@ import ViewModalContext from "../store/view-modal";
 
 import styles from "../styles/components/TaskModalView.module.scss";
 import { OptionType } from "../models/type";
+import Button from "./Button";
 
 const TaskModalView = () => {
   const { isViewOpen, onViewClose } = useContext(ViewModalContext);
@@ -24,7 +25,7 @@ const TaskModalView = () => {
           <h1 className={styles["modal-wrapper__heading"]}>
             Research pricing points of various competitors and trial different
             business models
-            <VerticalEllipsis />
+            <Button variant="dots" onClick={() => {}}></Button>
           </h1>
           <p className={styles["modal-wrapper__body"]}>
             We know what we're planning to build for version one. Now we need to
