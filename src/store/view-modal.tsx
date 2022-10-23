@@ -4,18 +4,23 @@ type ViewModalType = {
   isViewOpen: boolean;
   toggleViewModal: () => void;
   onViewClose: () => void;
+  selectedTask: {};
+  setSelectedTask: (task: { task: {}; completedSubtasks: number }) => void;
 };
 
 const ViewModalContext = createContext<ViewModalType>({
   isViewOpen: false,
   toggleViewModal: () => {},
   onViewClose: () => {},
+  selectedTask: {},
+  setSelectedTask: () => {},
 });
 
 type PropsType = { children: React.ReactNode };
 
 export const ViewModalProvider = ({ children }: PropsType) => {
   const [isViewOpen, setEditIsOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState({});
 
   const toggleViewModal = (): void => setEditIsOpen((prev) => !prev);
 
@@ -27,6 +32,8 @@ export const ViewModalProvider = ({ children }: PropsType) => {
         isViewOpen,
         toggleViewModal,
         onViewClose,
+        selectedTask,
+        setSelectedTask,
       }}
     >
       {children}

@@ -15,10 +15,19 @@ const Board = ({
   isSidebarHidden: boolean;
   setIsSidebarHidden: (prev: boolean) => void;
 }) => {
-  const { toggleViewModal } = useContext(ViewModalContext);
+  const { toggleViewModal, setSelectedTask } = useContext(ViewModalContext);
   const { hasColumns, columns } = useContext(BoardContext);
 
   const classes = `${styles["board"]} ${styles["board__no-columns"]}`;
+
+  const dotColors = [
+    "#49C4E5",
+    "#8471F2",
+    "#67E2AE",
+    "#49C4E5",
+    "#8471F2",
+    "#67E2AE",
+  ];
 
   return (
     <div style={{ width: "100%" }}>
@@ -27,25 +36,38 @@ const Board = ({
         {columns?.map((column, idx) => {
           return (
             <div key={idx} className={styles["column"]}>
-              <span>{column.name}</span>
+              <span className={styles["column-heading"]}>
+                <div
+                  style={{ backgroundColor: `${dotColors[idx]}` }}
+                  className={styles["dot"]}
+                ></div>
+                {column.name} ({column.tasks.length})
+              </span>
+
               {column.tasks?.map((task, index) => {
                 const subtaskCompletion = task.subtasks.map(
                   (subtask) => subtask.isCompleted
                 );
-                let sum = 0;
+                let completedSubtasks = 0;
                 subtaskCompletion.forEach((completion) =>
-                  completion ? sum++ : null
+                  completion ? completedSubtasks++ : null
                 );
 
                 return (
                   <div
                     key={index}
                     className={styles["task"]}
-                    onClick={() => toggleViewModal()}
+                    onClick={() => {
+                      setSelectedTask({
+                        task: task,
+                        completedSubtasks: completedSubtasks,
+                      });
+                      toggleViewModal();
+                    }}
                   >
                     <h4>{task.title}</h4>
                     <h4>
-                      {sum} of {task.subtasks.length}
+                      {completedSubtasks} of {task.subtasks.length}
                     </h4>
                   </div>
                 );
@@ -56,7 +78,7 @@ const Board = ({
 
         {hasColumns && (
           <div className={styles["new-column"]}>
-            <h1>+ New Column</h1>
+            <span>+ New Column</span>
           </div>
         )}
 
@@ -83,3 +105,6 @@ const Board = ({
 };
 
 export default Board;
+
+// todo: connect View modal so that JSON data comes in instead of the hard coded values :D
+// ? On click for the task

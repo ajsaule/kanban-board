@@ -8,6 +8,23 @@
 
   .column {
     width: 280px;
+
+    .column-heading {
+      display: flex;
+      color: var(--color-medium-grey);
+      font-size: 12px;
+      line-height: 15px;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      font-weight: 700;
+
+      .dot {
+        margin-right: 12px;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+      }
+    }
   }
 
   .task {
@@ -32,6 +49,16 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    span {
+      font-size: 24px;
+      color: var(--color-medium-grey);
+      font-weight: 700;
+    }
+
+    &:active {
+      color: var(--color-primary);
+    }
   }
 }
 
