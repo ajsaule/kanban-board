@@ -14,7 +14,7 @@ const Banner = () => {
         <Button onClick={toggleAddModal} size="large">
           + Add New Task
         </Button>
-        <Button variant="dots" onClick={toggleViewModal} />
+        <Button variant="dots" onClick={() => {}} />
       </div>
     </div>
   );

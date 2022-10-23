@@ -7,6 +7,7 @@ import BoardContext from "../store/board";
 
 import styles from "../styles/components/Board.module.scss";
 import ViewModalContext from "../store/view-modal";
+import AddModalContext from "../store/add-modal";
 
 const Board = ({
   isSidebarHidden,
@@ -15,6 +16,7 @@ const Board = ({
   isSidebarHidden: boolean;
   setIsSidebarHidden: (prev: boolean) => void;
 }) => {
+  const { toggleAddColModal } = useContext(AddModalContext);
   const { toggleViewModal, setSelectedTask } = useContext(ViewModalContext);
   const { hasColumns, columns } = useContext(BoardContext);
 
@@ -80,7 +82,7 @@ const Board = ({
         })}
 
         {hasColumns && (
-          <div className={styles["new-column"]}>
+          <div className={styles["new-column"]} onClick={toggleAddColModal}>
             <span>+ New Column</span>
           </div>
         )}

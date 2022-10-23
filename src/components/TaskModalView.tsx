@@ -3,10 +3,10 @@ import React, { useContext } from "react";
 import CheckboxItem from "./CheckboxItem";
 import Dropdown from "./Dropdown";
 import Modal from "./Modal";
-import VerticalEllipsis from "./svgs/VerticalEllipsis";
 import ViewModalContext from "../store/view-modal";
 
 import styles from "../styles/components/TaskModalView.module.scss";
+import Button from "./Button";
 
 const TaskModalView = () => {
   const { onViewClose, selectedTask } = useContext(ViewModalContext);
@@ -21,7 +21,7 @@ const TaskModalView = () => {
     <Modal className={styles["modal-wrapper"]} onClose={onViewClose}>
       <h1 className={styles["modal-wrapper__heading"]}>
         {selectedTask?.task.title}
-        <VerticalEllipsis />
+        <Button variant="dots" />
       </h1>
       <p className={styles["modal-wrapper__body"]}>
         {selectedTask?.task.description}

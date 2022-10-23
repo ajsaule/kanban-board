@@ -45,6 +45,28 @@ export const BoardProvider = ({ children }: PropsType) => {
 
   const columns = boardData.boards[selectedBoard.idx]?.columns;
 
+  const addColumn = (colName: string) => {
+    boardData.boards[selectedBoard.idx]?.columns.push({
+      name: colName,
+      tasks: [],
+    });
+  };
+
+  // ? not sure if below code is really needed at the moment, maybe we can implement add task in a different way
+  type Task = {
+    description: string;
+    status: string;
+    subtasks: [];
+    title: string;
+  };
+
+  const addTask = (task: Task) => {
+    boardData.boards[selectedBoard.idx]?.columns.push({
+      name: colName,
+      tasks: [],
+    });
+  };
+
   return (
     <BoardContext.Provider
       value={{
@@ -54,6 +76,7 @@ export const BoardProvider = ({ children }: PropsType) => {
         boardNames,
         columnNames,
         columns,
+        addColumn,
         selectedBoard,
         setBoardData,
         setSelectedBoard,

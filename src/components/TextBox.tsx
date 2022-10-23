@@ -5,9 +5,16 @@ import styles from "../styles/components/TextBox.module.scss";
 type PropsType = {
   placeholder?: string;
   variant?: "title" | "description" | "subtask";
+  onChange?: () => void;
+  value: string;
 };
 
-const TextBox = ({ placeholder = "", variant = "title" }: PropsType) => {
+const TextBox = ({
+  placeholder = "",
+  variant = "title",
+  onChange = false,
+  value = false,
+}: PropsType) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subtask, setSubtask] = useState("");
@@ -29,11 +36,11 @@ const TextBox = ({ placeholder = "", variant = "title" }: PropsType) => {
   if (variant === "title") {
     return (
       <input
-        value={title}
+        value={value ? value : title}
         type="text"
         className={styles["input-field"]}
         placeholder={placeholder}
-        onChange={handleTitleChange}
+        onChange={onChange ? onChange : handleTitleChange}
       />
     );
   }
@@ -41,10 +48,10 @@ const TextBox = ({ placeholder = "", variant = "title" }: PropsType) => {
   if (variant === "description") {
     return (
       <textarea
-        value={description}
+        value={value ? value : description}
         className={`${styles["input-field"]} ${styles["input-field__description"]}`}
         placeholder={placeholder}
-        onChange={handleDescriptionChange}
+        onChange={onChange ? onChange : handleDescriptionChange}
       />
     );
   }
@@ -54,10 +61,10 @@ const TextBox = ({ placeholder = "", variant = "title" }: PropsType) => {
       <div style={{ display: "flex", alignItems: "center" }}>
         <input
           type="text"
-          value={subtask}
+          value={value ? value : subtask}
           className={`${styles["input-field"]} ${styles["input-field__subtask"]}`}
           placeholder={placeholder}
-          onChange={handleSubtaskChange}
+          onChange={onChange ? onChange : handleSubtaskChange}
         />
         <SubtaskIcon
           className={styles["input-field__subtask__icon"]}
