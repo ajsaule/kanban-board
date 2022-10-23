@@ -5,12 +5,19 @@
   width: 100%;
   background: var(--color-bg);
   height: 90%;
+  overflow: auto;
 
   .column {
-    width: 280px;
+    // width: 340px;
+    min-width: 280px;
+    overflow: auto;
 
     .column-heading {
+      padding-bottom: 5px;
+      position: sticky;
+      top: 0;
       display: flex;
+      background-color: var(--color-bg);
       color: var(--color-medium-grey);
       font-size: 12px;
       line-height: 15px;
@@ -38,7 +45,7 @@
   }
 
   .new-column {
-    width: 280px;
+    min-width: 280px;
     background: linear-gradient(
       180deg,
       rgba(43, 44, 55, 0.25) 0%,
