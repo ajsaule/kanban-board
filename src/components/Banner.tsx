@@ -7,7 +7,6 @@ import EditModalContext from "../store/view-modal";
 import AddModalContext from "../store/add-modal";
 
 const Banner = () => {
-  const { toggleViewModal } = useContext(EditModalContext);
   const { toggleAddModal } = useContext(AddModalContext);
 
   return (
@@ -17,10 +16,7 @@ const Banner = () => {
         <Button onClick={toggleAddModal} size="large">
           + Add New Task
         </Button>
-        <VerticalEllipsis
-          onClick={toggleViewModal}
-          className={styles["vertical-ellipsis"]}
-        />
+        <VerticalEllipsis className={styles["vertical-ellipsis"]} />
       </div>
     </div>
   );

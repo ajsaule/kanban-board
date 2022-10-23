@@ -1,3 +1,7 @@
+.board-banner-container {
+  width: calc(100% - 400px);
+}
+
 .board {
   display: flex;
   gap: 24px;
@@ -9,7 +13,7 @@
 
   .column {
     // width: 340px;
-    min-width: 280px;
+    min-width: 285px;
     overflow: auto;
 
     .column-heading {
@@ -38,19 +42,24 @@
     cursor: pointer;
     margin-top: 20px;
     width: 280px;
-    background: #2b2c37;
+    background: var(--color-light);
     box-shadow: 0px 4px 6px rgba(54, 78, 126, 0.101545);
     border-radius: 8px;
     padding: 23px 16px;
+
+    h4 {
+      font-size: 15px;
+    }
+
+    h3 {
+      font-size: 12px;
+      color: var(--color-medium-grey);
+    }
   }
 
   .new-column {
     min-width: 280px;
-    background: linear-gradient(
-      180deg,
-      rgba(43, 44, 55, 0.25) 0%,
-      rgba(43, 44, 55, 0.125) 100%
-    );
+    background: var(--color-gradient);
     border-radius: 6px;
     display: flex;
     justify-content: center;

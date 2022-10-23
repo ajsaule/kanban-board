@@ -27,10 +27,13 @@ const Board = ({
     "#49C4E5",
     "#8471F2",
     "#67E2AE",
+    "#49C4E5",
+    "#8471F2",
+    "#67E2AE",
   ];
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className={styles["board-banner-container"]}>
       <Banner />
       <div className={hasColumns ? styles["board"] : styles["no-columns"]}>
         {columns?.map((column, idx) => {
@@ -66,9 +69,9 @@ const Board = ({
                     }}
                   >
                     <h4>{task.title}</h4>
-                    <h4>
-                      {completedSubtasks} of {task.subtasks.length}
-                    </h4>
+                    <h3>
+                      {completedSubtasks} of {task.subtasks.length} subtasks
+                    </h3>
                   </div>
                 );
               })}
