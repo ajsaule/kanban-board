@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const VerticalEllipsis = (props: any) => (
+const Dots = (props: any) => (
   <svg width={5} height={20} xmlns="http://www.w3.org/2000/svg" {...props}>
     <g fillRule="evenodd">
       <circle cx={2.308} cy={2.308} r={2.308} />
@@ -10,4 +10,4 @@ const VerticalEllipsis = (props: any) => (
   </svg>
 );
 
-export default VerticalEllipsis;
+export default Dots;

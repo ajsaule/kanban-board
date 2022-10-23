@@ -11,7 +11,11 @@ import styles from "../styles/components/TaskModalView.module.scss";
 const TaskModalView = () => {
   const { onViewClose, selectedTask } = useContext(ViewModalContext);
 
-  console.log("task1234", selectedTask);
+  const options: OptionType[] = [
+    { value: "todo", label: "Todo" },
+    { value: "doing", label: "Doing" },
+    { value: "done", label: "Done" },
+  ];
 
   return (
     <Modal className={styles["modal-wrapper"]} onClose={onViewClose}>
@@ -33,14 +37,7 @@ const TaskModalView = () => {
       </div>
       <div>
         <h4 className={styles["modal-wrapper__status"]}>Current Status</h4>
-        <Dropdown
-          defaultValue={selectedTask?.task.status}
-          options={[
-            { value: "todo", label: "Todo" },
-            { value: "doing", label: "Doing" },
-            { value: "done", label: "Done" },
-          ]}
-        />
+        <Dropdown defaultValue={selectedTask?.task.status} options={options} />
       </div>
     </Modal>
   );
