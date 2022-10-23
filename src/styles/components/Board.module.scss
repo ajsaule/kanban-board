@@ -23,9 +23,9 @@
       display: flex;
       background-color: var(--color-bg);
       color: var(--color-medium-grey);
-      font-size: 12px;
-      line-height: 15px;
-      letter-spacing: 2.4px;
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      letter-spacing: 0.24rem;
       text-transform: uppercase;
       font-weight: 700;
 
@@ -48,11 +48,11 @@
     padding: 23px 16px;
 
     h4 {
-      font-size: 15px;
+      font-size: 1.5rem;
     }
 
     h3 {
-      font-size: 12px;
+      font-size: 1.2rem;
       color: var(--color-medium-grey);
     }
   }
@@ -67,7 +67,7 @@
     cursor: pointer;
 
     span {
-      font-size: 24px;
+      font-size: 2.4rem;
       color: var(--color-medium-grey);
       font-weight: 700;
     }
