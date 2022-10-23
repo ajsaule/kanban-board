@@ -6,7 +6,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   className?: string;
   onClick: () => void;
-  color?: "primary" | "secondary" | "danger" | "transparent";
+  color?: "primary" | "secondary" | "danger";
   variant?: "dots";
   size?: "large";
   centered?: boolean;

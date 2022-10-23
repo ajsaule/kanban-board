@@ -10,11 +10,6 @@
   border-radius: 20px;
   transition: all 0.2s;
 
-  &.transparent {
-    color: var(--color-text);
-    background-color: transparent;
-  }
-
   // COLORS
   &.primary {
     color: var(--color-white);
