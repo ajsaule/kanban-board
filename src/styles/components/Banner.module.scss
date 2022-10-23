@@ -1,4 +1,5 @@
 .banner {
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,19 +7,13 @@
   background-color: var(--color-light);
   border-bottom: 0.1rem solid var(--color-lines);
   height: 10%;
-
-  .banner__heading {
-    margin-left: 2.4rem;
-  }
 }
 
 .button-wrapper {
-  display: flex;
-  margin-right: 3.3rem;
-  align-items: center;
-
-  .vertical-ellipsis {
-    margin-left: 2.4rem;
-    fill: var(--color-medium-grey);
+  & > :first-child {
+    margin-right: 2.4rem;
   }
+
+  display: flex;
+  align-items: center;
 }
