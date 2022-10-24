@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import Banner from "./Banner";
 import Button from "./Button";
@@ -16,9 +16,15 @@ const Board = ({
   isSidebarHidden: boolean;
   setIsSidebarHidden: (prev: boolean) => void;
 }) => {
-  const { toggleAddColModal } = useContext(AddModalContext);
+  const { toggleAddColModal, toggleAddTaskModal } = useContext(AddModalContext);
   const { toggleViewModal, setSelectedTask } = useContext(ViewModalContext);
-  const { hasColumns, columns } = useContext(BoardContext);
+  const {
+    hasColumns,
+    columns,
+    selectedBoard,
+    setSelectedColumn,
+    selectedColumn,
+  } = useContext(BoardContext);
 
   const classes = `${styles["board"]} ${styles["board__no-columns"]}`;
 
@@ -33,6 +39,8 @@ const Board = ({
     "#8471F2",
     "#67E2AE",
   ];
+
+  console.log(selectedColumn);
 
   return (
     <div className={styles["board-banner-container"]}>
@@ -77,6 +85,20 @@ const Board = ({
                   </div>
                 );
               })}
+
+              <div
+                className={styles["new-task"]}
+                onClick={() => {
+                  setSelectedColumn({
+                    column: column.name,
+                    idx: idx,
+                    colButton: true,
+                  });
+                  toggleAddTaskModal();
+                }}
+              >
+                <span>+ New Task</span>
+              </div>
             </div>
           );
         })}
@@ -87,13 +109,21 @@ const Board = ({
           </div>
         )}
 
-        {!hasColumns && (
+        {selectedBoard.board && !hasColumns && (
           <div className={styles["no-columns-message"]}>
             <h4>This board is empty. Create a new column to get started.</h4>
-            <Button color="primary" className={styles["button"]}>
+            <Button
+              color="primary"
+              className={styles["button"]}
+              onClick={toggleAddColModal}
+            >
               <span>+ Add New Column</span>
             </Button>
           </div>
+        )}
+
+        {!selectedBoard.board && (
+          <h4>No Selected Board, Create a new Board?</h4>
         )}
 
         {isSidebarHidden && (
@@ -110,6 +140,3 @@ const Board = ({
 };
 
 export default Board;
-
-// todo: connect View modal so that JSON data comes in instead of the hard coded values :D
-// ? On click for the task

@@ -23,6 +23,23 @@
     margin-bottom: 0.8rem;
   }
 
+  &__subtasks {
+    max-height: 300px;
+    overflow: auto;
+
+    h4 {
+      position: sticky;
+      top: 0;
+      background: var(--color-light);
+    }
+  }
+
+  &__button-wrapper {
+    position: sticky;
+    bottom: 0;
+    background: var(--color-light);
+  }
+
   .secondary-button {
     margin-top: 12px;
   }

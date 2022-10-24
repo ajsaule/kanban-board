@@ -1,23 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SubtaskIcon from "./svgs/SubtaskIcon";
 import styles from "../styles/components/TextBox.module.scss";
 
 type PropsType = {
+  subtaskIdx?: number;
   placeholder?: string;
   variant?: "title" | "description" | "subtask";
-  onChange?: () => void;
+  onChange?: (e: any, ...rest: any) => void;
   value: string;
+  removeSubtask?: () => void;
 };
 
 const TextBox = ({
+  subtaskIdx = -1,
   placeholder = "",
   variant = "title",
   onChange = false,
-  value = false,
+  value = "",
+  removeSubtask,
 }: PropsType) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subtask, setSubtask] = useState("");
+
+  useEffect(() => {
+    if (subtaskIdx > -1) onChange(subtask, subtaskIdx);
+  }, [subtask]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -31,16 +39,18 @@ const TextBox = ({
 
   const handleSubtaskChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSubtask(e.target.value);
+    // onChange(subtask, subtaskIdx);
+    // console.log("onChange1234", subtask, subtaskIdx);
   };
 
   if (variant === "title") {
     return (
       <input
-        value={value ? value : title}
+        value={value || title}
         type="text"
         className={styles["input-field"]}
         placeholder={placeholder}
-        onChange={onChange ? onChange : handleTitleChange}
+        onChange={onChange || handleTitleChange}
       />
     );
   }
@@ -48,10 +58,10 @@ const TextBox = ({
   if (variant === "description") {
     return (
       <textarea
-        value={value ? value : description}
+        value={value || description}
         className={`${styles["input-field"]} ${styles["input-field__description"]}`}
         placeholder={placeholder}
-        onChange={onChange ? onChange : handleDescriptionChange}
+        onChange={onChange || handleDescriptionChange}
       />
     );
   }
@@ -61,14 +71,14 @@ const TextBox = ({
       <div style={{ display: "flex", alignItems: "center" }}>
         <input
           type="text"
-          value={value ? value : subtask}
+          value={subtask}
           className={`${styles["input-field"]} ${styles["input-field__subtask"]}`}
           placeholder={placeholder}
-          onChange={onChange ? onChange : handleSubtaskChange}
+          onChange={handleSubtaskChange}
         />
         <SubtaskIcon
           className={styles["input-field__subtask__icon"]}
-          onClick={() => console.log("remove task")}
+          onClick={removeSubtask}
         />
       </div>
     );

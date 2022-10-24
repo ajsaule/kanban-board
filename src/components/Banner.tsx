@@ -1,17 +1,27 @@
 import React, { useContext } from "react";
+
 import Button from "./Button";
-import EditModalContext from "../store/view-modal";
+
 import AddModalContext from "../store/add-modal";
+import BoardContext from "../store/board";
+
 import styles from "../styles/components/Banner.module.scss";
 
 const Banner = () => {
-  const { toggleAddModal } = useContext(AddModalContext);
+  const { toggleAddTaskModal } = useContext(AddModalContext);
+  const { setSelectedColumn } = useContext(BoardContext);
 
   return (
     <div className={styles["banner"]}>
       <h1 className={`h-xl ${styles["banner__heading"]}`}>Platform Launch</h1>
       <div className={styles["button-wrapper"]}>
-        <Button onClick={toggleAddModal} size="large">
+        <Button
+          onClick={() => {
+            setSelectedColumn({ column: "", idx: -1, colButton: false });
+            toggleAddTaskModal();
+          }}
+          size="large"
+        >
           + Add New Task
         </Button>
         <Button variant="dots" onClick={() => {}} />

@@ -6,9 +6,10 @@ import ThemeContext from "../store/theme";
 type PropTypes = {
   defaultValue?: string;
   options: OptionType[];
+  onChange: () => void;
 };
 
-const Dropdown = ({ defaultValue, options }: PropTypes) => {
+const Dropdown = ({ defaultValue = "", options, onChange }: PropTypes) => {
   const { isDark } = useContext(ThemeContext);
 
   const colorStyles:
@@ -61,9 +62,10 @@ const Dropdown = ({ defaultValue, options }: PropTypes) => {
   return (
     <Select
       isSearchable={false}
-      // defaultValue={defaultValue}
+      placeholder="Select a column..."
+      defaultValue={{ value: defaultValue.toLowerCase(), label: defaultValue }}
       onChange={(option) => {
-        console.log(option);
+        onChange(option);
       }}
       options={options}
       styles={colorStyles}

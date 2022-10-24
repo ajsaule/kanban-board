@@ -9,8 +9,13 @@ type BoardType = {
   columnNames: string[];
   columns: [{}];
   setBoardData: (data: {}) => void;
-  setSelectedBoard: (board: {}) => void;
   selectedBoard: {};
+  setSelectedBoard: (board: {}) => void;
+  addColumn: (col: {}) => void;
+  addBoard: (board: {}) => void;
+  selectedColumn: {};
+  setSelectedColumn: (column: {}) => void;
+  addTask: (task: {}) => void;
 };
 
 const BoardContext = createContext<BoardType>({
@@ -21,8 +26,13 @@ const BoardContext = createContext<BoardType>({
   columnNames: [],
   columns: [{}],
   setBoardData: (data) => {},
-  setSelectedBoard: (board) => {},
   selectedBoard: {},
+  setSelectedBoard: (board) => {},
+  addColumn: (col) => {},
+  addBoard: (board) => {},
+  selectedColumn: {},
+  setSelectedColumn: (col) => {},
+  addTask: (task) => {},
 });
 
 type PropsType = { children: React.ReactNode };
@@ -30,25 +40,46 @@ type PropsType = { children: React.ReactNode };
 export const BoardProvider = ({ children }: PropsType) => {
   const [boardData, setBoardData] = useState(data);
   const [selectedBoard, setSelectedBoard] = useState({ board: "", idx: -1 });
+  const [selectedColumn, setSelectedColumn] = useState({
+    column: "",
+    idx: -1,
+    colButton: false,
+  });
 
   useEffect(() => {
     // Use react query to push changes to backend eventually
   }, [boardData]);
 
-  const hasBoards = boardData.boards.length > 0;
-  const hasColumns = boardData.boards[selectedBoard.idx]?.columns.length > 0;
+  const hasBoards = boardData.boards?.length > 0;
+  const hasColumns = boardData?.boards[selectedBoard?.idx]?.columns.length > 0;
 
-  const boardNames = boardData.boards.map((board) => board.name);
-  const columnNames = boardData.boards[selectedBoard.idx]?.columns.map(
+  const boardNames = boardData.boards?.map((board) => board.name);
+  const columnNames = boardData?.boards[selectedBoard?.idx]?.columns.map(
     (column) => column.name
   );
 
-  const columns = boardData.boards[selectedBoard.idx]?.columns;
+  const columns = boardData.boards[selectedBoard?.idx]?.columns;
+
+  const addBoard = (boardName: string) => {
+    const arr = boardData;
+    arr.boards.push({
+      name: boardName,
+      columns: [],
+    });
+    setBoardData(arr);
+    setSelectedBoard({ board: boardName, idx: arr.boards.length - 1 });
+  };
 
   const addColumn = (colName: string) => {
-    boardData.boards[selectedBoard.idx]?.columns.push({
+    const arr = boardData;
+    arr.boards[selectedBoard.idx]?.columns.push({
       name: colName,
       tasks: [],
+    });
+    setBoardData(arr);
+    setSelectedBoard({
+      board: arr.boards[selectedBoard.idx].name,
+      idx: arr.boards.length - 1,
     });
   };
 
@@ -60,11 +91,15 @@ export const BoardProvider = ({ children }: PropsType) => {
     title: string;
   };
 
-  const addTask = (task: Task) => {
-    boardData.boards[selectedBoard.idx]?.columns.push({
-      name: colName,
-      tasks: [],
+  const addTask = ({ description, status, subtasks, title }: Task) => {
+    const arr = boardData;
+    arr.boards[selectedBoard.idx]?.columns[selectedColumn.idx].tasks.push({
+      title: title,
+      description: description,
+      status: status,
+      subtasks: subtasks,
     });
+    console.log(arr);
   };
 
   return (
@@ -76,10 +111,14 @@ export const BoardProvider = ({ children }: PropsType) => {
         boardNames,
         columnNames,
         columns,
-        addColumn,
-        selectedBoard,
         setBoardData,
+        selectedBoard,
         setSelectedBoard,
+        addColumn,
+        addBoard,
+        selectedColumn,
+        setSelectedColumn,
+        addTask,
       }}
     >
       {children}
