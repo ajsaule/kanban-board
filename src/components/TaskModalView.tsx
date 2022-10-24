@@ -11,15 +11,7 @@ import BoardContext from "../store/board";
 
 const TaskModalView = () => {
   const { onViewClose } = useContext(ViewModalContext);
-  const { updateTask, selectedTask } = useContext(BoardContext);
-
-  const options: OptionType[] = [
-    { value: "todo", label: "Todo" },
-    { value: "doing", label: "Doing" },
-    { value: "done", label: "Done" },
-  ];
-
-  console.log("test1234", selectedTask.task.status);
+  const { updateTask, selectedTask, columns } = useContext(BoardContext);
 
   return (
     <Modal className={styles["modal-wrapper"]} onClose={onViewClose}>
@@ -44,7 +36,9 @@ const TaskModalView = () => {
         <Dropdown
           onChange={updateTask}
           defaultValue={selectedTask.task.status}
-          options={options}
+          options={columns.map((column) => {
+            return { value: column.name.toLowerCase(), label: column.name };
+          })}
         />
       </div>
     </Modal>

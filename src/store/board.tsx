@@ -21,7 +21,11 @@ type BoardType = {
   setSelectedColumn: (column: {}) => void;
   addTask: (task: {}) => void;
   updateTask: (task: {}) => void;
-  selectedTask: {};
+  selectedTask: {
+    task: {};
+    completedSubtasks: number;
+    idx: number;
+  };
   setSelectedTask: (task: {
     task: {};
     completedSubtasks: number;
@@ -49,7 +53,11 @@ const BoardContext = createContext<BoardType>({
   setSelectedColumn: (col) => {},
   addTask: (task) => {},
   updateTask: (task) => {},
-  selectedTask: {},
+  selectedTask: {
+    task: {},
+    completedSubtasks: -1,
+    idx: -1,
+  },
   setSelectedTask: () => {},
 });
 
@@ -68,10 +76,6 @@ export const BoardProvider = ({ children }: PropsType) => {
     completedSubtasks: -1,
     idx: -1,
   });
-
-  useEffect(() => {
-    // Use react query to push changes to backend eventually
-  }, [boardData]);
 
   const hasBoards = boardData.boards?.length > 0;
   const hasColumns = boardData?.boards[selectedBoard?.idx]?.columns.length > 0;

@@ -28,7 +28,7 @@ const TaskModalAdd = () => {
       isCompleted: false,
     };
     setSubtasks(arr);
-    forceUpdate();
+    forceUpdate(); // ? This is hacky but for some reason the setState above is not enough to rerender
   };
   const handleStatusChange = (column) => setStatus(column);
 
@@ -45,10 +45,9 @@ const TaskModalAdd = () => {
   };
 
   const saveTask = () => {
-    // setSubtasks();
     addTask({
       description: description,
-      status: status,
+      status: selectedColumn.colAddButton ? selectedColumn.column : status,
       subtasks: subtasks,
       title: title,
     });
@@ -56,7 +55,12 @@ const TaskModalAdd = () => {
 
   return (
     <Modal className={styles["modal-wrapper"]} onClose={onAddClose}>
-      <h1 className={styles["modal-wrapper__heading"]}>Add New Task</h1>
+      <h1 className={styles["modal-wrapper__heading"]}>
+        Add New Task
+        {selectedColumn.column
+          ? " to " + selectedColumn.column + " column"
+          : ""}
+      </h1>
       <div>
         <h4>Title</h4>
         <TextBox variant="title" onChange={handleTitleChange} value={title} />
