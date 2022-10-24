@@ -39,8 +39,6 @@ const TextBox = ({
 
   const handleSubtaskChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSubtask(e.target.value);
-    // onChange(subtask, subtaskIdx);
-    // console.log("onChange1234", subtask, subtaskIdx);
   };
 
   if (variant === "title") {

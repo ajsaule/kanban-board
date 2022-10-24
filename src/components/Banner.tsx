@@ -17,7 +17,7 @@ const Banner = () => {
       <div className={styles["button-wrapper"]}>
         <Button
           onClick={() => {
-            setSelectedColumn({ column: "", idx: -1, colButton: false });
+            setSelectedColumn({ column: "", idx: -1, colAddButton: false });
             toggleAddTaskModal();
           }}
           size="large"

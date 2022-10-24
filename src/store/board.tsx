@@ -9,13 +9,24 @@ type BoardType = {
   columnNames: string[];
   columns: [{}];
   setBoardData: (data: {}) => void;
-  selectedBoard: {};
+  selectedBoard: { board: string; idx: number };
   setSelectedBoard: (board: {}) => void;
   addColumn: (col: {}) => void;
   addBoard: (board: {}) => void;
-  selectedColumn: {};
+  selectedColumn: {
+    column: string;
+    idx: number;
+    colAddButton: false;
+  };
   setSelectedColumn: (column: {}) => void;
   addTask: (task: {}) => void;
+  updateTask: (task: {}) => void;
+  selectedTask: {};
+  setSelectedTask: (task: {
+    task: {};
+    completedSubtasks: number;
+    idx: number;
+  }) => void;
 };
 
 const BoardContext = createContext<BoardType>({
@@ -26,13 +37,20 @@ const BoardContext = createContext<BoardType>({
   columnNames: [],
   columns: [{}],
   setBoardData: (data) => {},
-  selectedBoard: {},
+  selectedBoard: { board: "", idx: -1 },
   setSelectedBoard: (board) => {},
   addColumn: (col) => {},
   addBoard: (board) => {},
-  selectedColumn: {},
+  selectedColumn: {
+    column: "",
+    idx: -1,
+    colAddButton: false,
+  },
   setSelectedColumn: (col) => {},
   addTask: (task) => {},
+  updateTask: (task) => {},
+  selectedTask: {},
+  setSelectedTask: () => {},
 });
 
 type PropsType = { children: React.ReactNode };
@@ -43,7 +61,12 @@ export const BoardProvider = ({ children }: PropsType) => {
   const [selectedColumn, setSelectedColumn] = useState({
     column: "",
     idx: -1,
-    colButton: false,
+    colAddButton: false,
+  });
+  const [selectedTask, setSelectedTask] = useState({
+    task: {},
+    completedSubtasks: -1,
+    idx: -1,
   });
 
   useEffect(() => {
@@ -61,25 +84,25 @@ export const BoardProvider = ({ children }: PropsType) => {
   const columns = boardData.boards[selectedBoard?.idx]?.columns;
 
   const addBoard = (boardName: string) => {
-    const arr = boardData;
-    arr.boards.push({
+    const obj = boardData;
+    obj.boards.push({
       name: boardName,
       columns: [],
     });
-    setBoardData(arr);
-    setSelectedBoard({ board: boardName, idx: arr.boards.length - 1 });
+    setBoardData(obj);
+    setSelectedBoard({ board: boardName, idx: obj.boards.length - 1 });
   };
 
   const addColumn = (colName: string) => {
-    const arr = boardData;
-    arr.boards[selectedBoard.idx]?.columns.push({
+    const obj = boardData;
+    obj.boards[selectedBoard.idx]?.columns.push({
       name: colName,
       tasks: [],
     });
-    setBoardData(arr);
+    setBoardData(obj);
     setSelectedBoard({
-      board: arr.boards[selectedBoard.idx].name,
-      idx: arr.boards.length - 1,
+      board: obj.boards[selectedBoard.idx].name,
+      idx: obj.boards.length - 1,
     });
   };
 
@@ -92,14 +115,28 @@ export const BoardProvider = ({ children }: PropsType) => {
   };
 
   const addTask = ({ description, status, subtasks, title }: Task) => {
-    const arr = boardData;
-    arr.boards[selectedBoard.idx]?.columns[selectedColumn.idx].tasks.push({
+    const obj = boardData;
+    obj.boards[selectedBoard.idx]?.columns[selectedColumn.idx].tasks.push({
       title: title,
       description: description,
       status: status,
       subtasks: subtasks,
     });
-    console.log(arr);
+    console.log(obj);
+  };
+
+  const updateTask = (updatedStatus) => {
+    const obj = boardData;
+    // ? need to somehow get this status switch to move it into different column object as well as changing status too
+    obj.boards[selectedBoard.idx].columns[selectedColumn.idx].tasks[
+      selectedTask.idx
+    ] = {
+      ...obj.boards[selectedBoard.idx]?.columns[selectedColumn.idx]?.tasks[
+        selectedTask.idx
+      ],
+      status: updatedStatus.label,
+    };
+    console.log(obj);
   };
 
   return (
@@ -119,6 +156,9 @@ export const BoardProvider = ({ children }: PropsType) => {
         selectedColumn,
         setSelectedColumn,
         addTask,
+        updateTask,
+        selectedTask,
+        setSelectedTask,
       }}
     >
       {children}

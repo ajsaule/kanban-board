@@ -8,6 +8,7 @@ import TaskModalAdd from "../components/TaskModalAdd";
 import TaskModalView from "../components/TaskModalView";
 
 import AddModalContext from "../store/add-modal";
+import BoardContext from "../store/board";
 import ViewModalContext from "../store/view-modal";
 
 function HomePage() {

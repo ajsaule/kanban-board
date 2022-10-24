@@ -98,7 +98,7 @@ const TaskModalAdd = () => {
           </Button>
         </div>
       </div>
-      {!selectedColumn.colButton && (
+      {!selectedColumn.colAddButton && (
         <div>
           <h4 className={styles["modal-wrapper__status"]}>Status</h4>
           <Dropdown

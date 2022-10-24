@@ -17,13 +17,14 @@ const Board = ({
   setIsSidebarHidden: (prev: boolean) => void;
 }) => {
   const { toggleAddColModal, toggleAddTaskModal } = useContext(AddModalContext);
-  const { toggleViewModal, setSelectedTask } = useContext(ViewModalContext);
+  const { toggleViewModal } = useContext(ViewModalContext);
   const {
     hasColumns,
     columns,
     selectedBoard,
-    setSelectedColumn,
     selectedColumn,
+    setSelectedTask,
+    setSelectedColumn,
   } = useContext(BoardContext);
 
   const classes = `${styles["board"]} ${styles["board__no-columns"]}`;
@@ -74,6 +75,12 @@ const Board = ({
                       setSelectedTask({
                         task: task,
                         completedSubtasks: completedSubtasks,
+                        idx: index,
+                      });
+                      setSelectedColumn({
+                        column: column.name,
+                        idx: idx,
+                        colAddButton: false,
                       });
                       toggleViewModal();
                     }}
@@ -92,7 +99,7 @@ const Board = ({
                   setSelectedColumn({
                     column: column.name,
                     idx: idx,
-                    colButton: true,
+                    colAddButton: true,
                   });
                   toggleAddTaskModal();
                 }}
