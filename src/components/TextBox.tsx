@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SubtaskIcon from "./svgs/SubtaskIcon";
 import styles from "../styles/components/TextBox.module.scss";
 
 type PropsType = {
+  subtaskIdx?: number;
   placeholder?: string;
   variant?: "title" | "description" | "subtask";
+  onChange?: (e: any, ...rest: any) => void;
+  value: string;
+  removeSubtask?: () => void;
 };
 
-const TextBox = ({ placeholder = "", variant = "title" }: PropsType) => {
+const TextBox = ({
+  subtaskIdx = -1,
+  placeholder = "",
+  variant = "title",
+  onChange = false,
+  value = "",
+  removeSubtask,
+}: PropsType) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subtask, setSubtask] = useState("");
+
+  useEffect(() => {
+    if (subtaskIdx > -1) onChange(subtask, subtaskIdx);
+  }, [subtask]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -29,11 +44,11 @@ const TextBox = ({ placeholder = "", variant = "title" }: PropsType) => {
   if (variant === "title") {
     return (
       <input
-        value={title}
+        value={value || title}
         type="text"
         className={styles["input-field"]}
         placeholder={placeholder}
-        onChange={handleTitleChange}
+        onChange={onChange || handleTitleChange}
       />
     );
   }
@@ -41,10 +56,10 @@ const TextBox = ({ placeholder = "", variant = "title" }: PropsType) => {
   if (variant === "description") {
     return (
       <textarea
-        value={description}
+        value={value || description}
         className={`${styles["input-field"]} ${styles["input-field__description"]}`}
         placeholder={placeholder}
-        onChange={handleDescriptionChange}
+        onChange={onChange || handleDescriptionChange}
       />
     );
   }
@@ -61,7 +76,7 @@ const TextBox = ({ placeholder = "", variant = "title" }: PropsType) => {
         />
         <SubtaskIcon
           className={styles["input-field__subtask__icon"]}
-          onClick={() => console.log("remove task")}
+          onClick={removeSubtask}
         />
       </div>
     );
