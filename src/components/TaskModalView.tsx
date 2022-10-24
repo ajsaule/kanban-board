@@ -1,42 +1,45 @@
 import React, { useContext } from "react";
+
 import CheckboxItem from "./CheckboxItem";
 import Dropdown from "./Dropdown";
 import Modal from "./Modal";
-import Button from "./Button";
 import ViewModalContext from "../store/view-modal";
-import { OptionType } from "../models/type";
+
 import styles from "../styles/components/TaskModalView.module.scss";
+import Button from "./Button";
+import BoardContext from "../store/board";
 
 const TaskModalView = () => {
   const { onViewClose } = useContext(ViewModalContext);
-
-  const options: OptionType[] = [
-    { value: "todo", label: "Todo" },
-    { value: "doing", label: "Doing" },
-    { value: "done", label: "Done" },
-  ];
+  const { updateTask, selectedTask, columns } = useContext(BoardContext);
 
   return (
     <Modal className={styles["modal-wrapper"]} onClose={onViewClose}>
       <h1 className={styles["modal-wrapper__heading"]}>
-        Research pricing points of various competitors and trial different
-        business models
-        <Button variant="dots" onClick={() => {}} />
+        {selectedTask?.task.title}
+        <Button variant="dots" />
       </h1>
       <p className={styles["modal-wrapper__body"]}>
-        We know what we&aposre planning to build for version one. Now we need to
-        finalise the first pricing model we&aposll use. Keep iterating the
-        subtasks until we have a coherent proposition.
+        {selectedTask?.task.description}
       </p>
       <div>
-        <h4 className={styles["modal-wrapper__subtasks"]}>Subtasks (2 of 3)</h4>
-        <CheckboxItem text="Research competitor pricing and business models" />
-        <CheckboxItem text="Outline a business model that works for our solution" />
-        <CheckboxItem text="Talk to potential customers about our proposed solution and ask for fair price expectancy" />
+        <h4 className={styles["modal-wrapper__subtasks"]}>
+          Subtasks ({selectedTask.completedSubtasks} of{" "}
+          {selectedTask.task.subtasks.length})
+        </h4>
+        {selectedTask?.task.subtasks.map((subtask, idx) => {
+          return <CheckboxItem key={idx} text={subtask.title} />;
+        })}
       </div>
       <div>
         <h4 className={styles["modal-wrapper__status"]}>Current Status</h4>
-        <Dropdown options={options} />
+        <Dropdown
+          onChange={updateTask}
+          defaultValue={selectedTask.task.status}
+          options={columns.map((column) => {
+            return { value: column.name.toLowerCase(), label: column.name };
+          })}
+        />
       </div>
     </Modal>
   );
