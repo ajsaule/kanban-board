@@ -9,11 +9,13 @@ import styles from "../styles/components/Banner.module.scss";
 
 const Banner = () => {
   const { toggleAddTaskModal } = useContext(AddModalContext);
-  const { setSelectedColumn } = useContext(BoardContext);
+  const { setSelectedColumn, selectedBoard } = useContext(BoardContext);
 
   return (
     <div className={styles["banner"]}>
-      <h1 className={`h-xl ${styles["banner__heading"]}`}>Platform Launch</h1>
+      <h1 className={`h-xl ${styles["banner__heading"]}`}>
+        {selectedBoard.board}
+      </h1>
       <div className={styles["button-wrapper"]}>
         <Button
           onClick={() => {
