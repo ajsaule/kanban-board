@@ -4,6 +4,7 @@ import { ThemeProvider } from "../store/theme";
 import { ViewModalProvider } from "../store/view-modal";
 import { AddModalProvider } from "../store/add-modal";
 import { BoardProvider } from "../store/board";
+import { SidebarProvider } from "../store/sidebar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,7 +12,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ViewModalProvider>
         <AddModalProvider>
           <BoardProvider>
-            <Component {...pageProps} />
+            <SidebarProvider>
+              <Component {...pageProps} />
+            </SidebarProvider>
           </BoardProvider>
         </AddModalProvider>
       </ViewModalProvider>
