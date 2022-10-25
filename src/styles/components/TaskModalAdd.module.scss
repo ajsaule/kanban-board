@@ -5,6 +5,7 @@
 
   &__heading {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     font-size: 1.8rem;
     line-height: 22.68px;
@@ -20,6 +21,23 @@
   &__status {
     color: var(--color-grey);
     margin-bottom: 0.8rem;
+  }
+
+  &__subtasks {
+    max-height: 300px;
+    overflow: auto;
+
+    h4 {
+      position: sticky;
+      top: 0;
+      background: var(--color-light);
+    }
+  }
+
+  &__button-wrapper {
+    position: sticky;
+    bottom: 0;
+    background: var(--color-light);
   }
 
   .secondary-button {

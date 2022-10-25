@@ -1,3 +1,7 @@
+.board-banner-container {
+  width: calc(100% - 300px);
+}
+
 .board {
   display: flex;
   gap: 24px;
@@ -5,33 +9,102 @@
   width: 100%;
   background: var(--color-bg);
   height: 90%;
+  overflow: auto;
 
   .column {
-    width: 280px;
+    // width: 340px;
+    min-width: 285px;
+    overflow: auto;
+
+    .column-heading {
+      padding-bottom: 5px;
+      position: sticky;
+      top: 0;
+      display: flex;
+      background-color: var(--color-bg);
+      color: var(--color-medium-grey);
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      letter-spacing: 0.24rem;
+      text-transform: uppercase;
+      font-weight: 700;
+
+      .dot {
+        margin-right: 12px;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+      }
+    }
   }
 
   .task {
     cursor: pointer;
     margin-top: 20px;
     width: 280px;
-    background: #2b2c37;
+    background: var(--color-light);
     box-shadow: 0px 4px 6px rgba(54, 78, 126, 0.101545);
     border-radius: 8px;
     padding: 23px 16px;
+
+    h4 {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: var(--color-medium-grey);
+    }
+  }
+
+  .new-task {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+    margin-top: 20px;
+    height: 90px;
+    min-width: 280px;
+    background: var(--color-gradient);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    span {
+      font-size: 2.4rem;
+      color: var(--color-medium-grey);
+      font-weight: 700;
+    }
+
+    &:active > span {
+      color: var(--color-primary);
+    }
   }
 
   .new-column {
-    width: 280px;
-    background: linear-gradient(
-      180deg,
-      rgba(43, 44, 55, 0.25) 0%,
-      rgba(43, 44, 55, 0.125) 100%
-    );
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+    min-width: 280px;
+    background: var(--color-gradient);
     border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    span {
+      font-size: 2.4rem;
+      color: var(--color-medium-grey);
+      font-weight: 700;
+    }
+
+    &:active > span {
+      color: var(--color-primary);
+    }
   }
 }
 
@@ -39,7 +112,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90%;
   background: var(--color-bg);
 
   .button {
