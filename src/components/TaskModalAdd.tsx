@@ -61,10 +61,12 @@ const TaskModalAdd = () => {
           ? " to " + selectedColumn.column + " column"
           : ""}
       </h1>
+
       <div>
         <h4>Title</h4>
         <TextBox variant="title" onChange={handleTitleChange} value={title} />
       </div>
+
       <div>
         <h4>Description</h4>
         <TextBox
@@ -75,6 +77,7 @@ const TaskModalAdd = () => {
           value={description}
         />
       </div>
+
       <div className={styles["modal-wrapper__subtasks"]}>
         <h4>Subtasks</h4>
         {subtasks.map((subtask, idx) => (
@@ -88,6 +91,7 @@ const TaskModalAdd = () => {
             removeSubtask={() => removeSubtask(idx)}
           />
         ))}
+
         <div className={styles["modal-wrapper__button-wrapper"]}>
           <Button
             color="secondary"
@@ -102,6 +106,7 @@ const TaskModalAdd = () => {
           </Button>
         </div>
       </div>
+
       {!selectedColumn.colAddButton && (
         <div>
           <h4 className={styles["modal-wrapper__status"]}>Status</h4>
@@ -115,7 +120,6 @@ const TaskModalAdd = () => {
         </div>
       )}
       <Button
-        variant="primary"
         onClick={() => {
           saveTask();
           onAddClose();
