@@ -81,6 +81,8 @@ const TextBox = ({
       </div>
     );
   }
+
+  return <></>;
 };
 
 export default TextBox;

@@ -5,7 +5,7 @@ import styles from "../styles/components/Button.module.scss";
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
   color?: "primary" | "secondary" | "danger";
   variant?: "dots";
   size?: "large";
