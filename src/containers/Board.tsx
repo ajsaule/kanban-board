@@ -1,21 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
-import Banner from "./Banner";
-import Button from "./Button";
-import ShowNavbarIcon from "./svgs/ShowNavbarIcon";
+import Button from "../components/Button";
 import BoardContext from "../store/board";
 
 import ViewModalContext from "../store/view-modal";
 import AddModalContext from "../store/add-modal";
 import styles from "../styles/components/Board.module.scss";
+import SidebarContext from "../store/sidebar";
 
-const Board = ({
-  isSidebarHidden,
-  setIsSidebarHidden,
-}: {
-  isSidebarHidden: boolean;
-  setIsSidebarHidden: (prev: boolean) => void;
-}) => {
+const Board = () => {
+  const { isHidden: isSidebarHidden } = useContext(SidebarContext);
   const { toggleAddColModal, toggleAddTaskModal } = useContext(AddModalContext);
   const { toggleViewModal } = useContext(ViewModalContext);
   const {
@@ -44,8 +38,11 @@ const Board = ({
   console.log(selectedColumn);
 
   return (
-    <div className={styles["board-banner-container"]}>
-      <Banner />
+    <div
+      className={`${styles["board__container"]} ${
+        isSidebarHidden ? styles["full-width"] : ""
+      }`}
+    >
       <div className={hasColumns ? styles["board"] : styles["no-columns"]}>
         {columns?.map((column, idx) => {
           return (
@@ -124,22 +121,13 @@ const Board = ({
               className={styles["button"]}
               onClick={toggleAddColModal}
             >
-              <span>+ Add New Column</span>
+              + Add New Column
             </Button>
           </div>
         )}
 
         {!selectedBoard.board && (
           <h4>No Selected Board, Create a new Board?</h4>
-        )}
-
-        {isSidebarHidden && (
-          <div
-            onClick={() => setIsSidebarHidden((prev) => !prev)}
-            className={styles["hide-navbar-tab"]}
-          >
-            <ShowNavbarIcon />
-          </div>
         )}
       </div>
     </div>

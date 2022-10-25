@@ -1,17 +1,10 @@
-.side-bar {
+.sidebar {
   padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 30rem;
+  width: var(--sidebar-width);
   background: var(--color-light);
   border-right: 1px solid var(--color-lines);
-
-  &__logo {
-    margin-top: 1.2rem;
-    margin-left: 3.4rem;
-    margin-bottom: 3.4rem;
-  }
 
   &__heading {
     padding-left: 3.2rem;
@@ -21,15 +14,9 @@
   }
 
   &__hide-icon {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
-}
 
-.hide {
-  display: none;
-}
-
-.sidebar {
   &__footer {
     margin-top: auto;
   }

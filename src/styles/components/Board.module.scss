@@ -1,15 +1,19 @@
-.board-banner-container {
-  width: calc(100% - 300px);
-}
-
 .board {
   display: flex;
   gap: 24px;
   padding: 24px;
-  width: 100%;
+  // width: 100%;
+  height: 100%;
   background: var(--color-bg);
-  height: 90%;
-  overflow: auto;
+  overflow: scroll;
+
+  &__container {
+    width: calc(100% - var(--sidebar-width));
+
+    &.full-width {
+      width: 100%;
+    }
+  }
 
   .column {
     // width: 340px;
@@ -112,7 +116,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90%;
+  height: 100%;
   background: var(--color-bg);
 
   .button {
@@ -124,25 +128,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-}
-
-.hide-navbar-tab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  width: 5.6rem;
-  height: 4.8rem;
-  left: 0;
-  bottom: 3rem;
-  background: var(--color-primary);
-  border-radius: 0 10rem 10rem 0;
-  cursor: pointer;
-
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: var(--color-primary-light);
   }
 }

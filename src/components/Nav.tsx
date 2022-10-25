@@ -26,7 +26,7 @@ const Nav = () => {
         </NavItem>
       ))}
 
-      <NavItem active variant="purple" onClick={toggleAddBoardModal}>
+      <NavItem onClick={toggleAddBoardModal}>
         <BoardIcon />+ Create New Board
       </NavItem>
     </ul>
