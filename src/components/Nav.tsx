@@ -8,13 +8,18 @@ import styles from "../styles/components/Nav.module.scss";
 import BoardContext from "../store/board";
 
 const Nav = () => {
-  const { boardNames, selectedBoard, setSelectedBoard } = useContext(BoardContext)
+  const { boardNames, selectedBoard, setSelectedBoard } =
+    useContext(BoardContext);
   // const boards = ["platform launch", "marketing plan", "roadmap"];
 
   return (
     <ul className={styles["nav"]}>
       {boardNames.map((board, idx) => (
-        <NavItem key={getId()} active={selectedBoard.board === board} onClick={() => setSelectedBoard({board: board, idx: idx})}>
+        <NavItem
+          key={getId()}
+          active={selectedBoard.board === board}
+          onClick={() => setSelectedBoard({ board: board, idx: idx })}
+        >
           <BoardIcon />
           {board}
         </NavItem>

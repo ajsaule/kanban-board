@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 const SubtaskIcon = (props: any) => (
   <svg
@@ -11,6 +11,6 @@ const SubtaskIcon = (props: any) => (
     <path fill="#828FA3" d="m12.728 0 2.121 2.121L2.121 14.85l-2.12-2.121z" />
     <path fill="#828FA3" d="M0 2.121 2.12 0 14.85 12.728l-2.121 2.12z" />
   </svg>
-)
+);
 
-export default SubtaskIcon
+export default SubtaskIcon;
