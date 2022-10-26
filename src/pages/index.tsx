@@ -1,11 +1,11 @@
 import { useContext } from "react";
 
-import Banner from "../components/Banner";
-import BoardModalAdd from "../components/BoardModalAdd";
-import ColumnModalAdd from "../components/ColumnModalAdd";
+import Banner from "../containers/Banner";
+import BoardModalAdd from "../components/Modal/AddBoardModal";
+import ColumnModalAdd from "../components/Modal/AddColumnModal";
 import ShowSidebarButton from "../components/ShowSidebarButton";
-import TaskModalAdd from "../components/TaskModalAdd";
-import TaskModalView from "../components/TaskModalView";
+import TaskModalAdd from "../components/Modal/AddTaskModal";
+import TaskModalView from "../components/Modal/ViewTaskModal";
 import Dashboard from "../containers/Dashboard";
 
 import AddModalContext from "../store/add-modal";

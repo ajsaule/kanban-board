@@ -1,12 +1,12 @@
 import React, { useCallback, useContext, useState } from "react";
-import Dropdown from "./Dropdown";
-import Modal from "./Modal";
-import TextBox from "./TextBox";
-import Button from "./Button";
-import AddModalContext from "../store/add-modal";
+import Dropdown from "../MySelect";
+import Modal from ".";
+import TextBox from "../TextBox";
+import Button from "../Button";
+import AddModalContext from "../../store/add-modal";
 
-import styles from "../styles/components/TaskModalAdd.module.scss";
-import BoardContext from "../store/board";
+import styles from "../../styles/components/TaskModalAdd.module.scss";
+import BoardContext from "../../store/board";
 
 const TaskModalAdd = () => {
   const [title, setTitle] = useState("");

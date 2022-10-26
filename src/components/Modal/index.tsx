@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import styles from "../styles/components/Modal.module.scss";
+import styles from "../../styles/components/Modal.module.scss";
 
 type PropsType = {
   children: React.ReactNode;

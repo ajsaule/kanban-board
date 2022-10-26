@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import ThemeToggler from "../components/ThemeToggler";
 import HideNavbarIcon from "../components/svgs/HideNavbarIcon";
 import NavItem from "../components/SidebarItem";
-import Nav from "../components/Nav";
+import Nav from "./Nav";
 import SidebarContext from "../store/sidebar";
 import styles from "../styles/components/SideBar.module.scss";
 

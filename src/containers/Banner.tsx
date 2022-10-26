@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 
-import Button from "./Button";
+import Button from "../components/Button";
+import EditBtn from "./EditBtn";
 
 import AddModalContext from "../store/add-modal";
 import BoardContext from "../store/board";
-import Logo from "./Logo";
+import Logo from "../components/Logo";
 
 import styles from "../styles/components/Banner.module.scss";
 
@@ -35,7 +36,7 @@ const Banner = ({ isSidebarHidden }: { isSidebarHidden: boolean }) => {
           >
             + Add New Task
           </Button>
-          <Button variant="dots" onClick={() => {}} />
+          <EditBtn type="board" />
         </div>
       </div>
     </header>

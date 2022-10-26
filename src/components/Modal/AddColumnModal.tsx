@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 
-import Modal from "./Modal";
-import TextBox from "./TextBox";
-import Button from "./Button";
+import Modal from ".";
+import TextBox from "../TextBox";
+import Button from "../Button";
 
-import AddModalContext from "../store/add-modal";
-import BoardContext from "../store/board";
+import AddModalContext from "../../store/add-modal";
+import BoardContext from "../../store/board";
 
-import styles from "../styles/components/TaskModalAdd.module.scss";
+import styles from "../../styles/components/TaskModalAdd.module.scss";
 
 const ColumnModalAdd = () => {
   const [colName, setColName] = useState("");

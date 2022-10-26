@@ -14,6 +14,7 @@
     #e9effa 0%,
     rgba(233, 239, 250, 0.5) 100%
   ); // As Background (column background)
+  --shadow: 0px 10px 20px #{$color-shadow-light};
 }
 
 // Dark
@@ -30,4 +31,5 @@
     rgba(43, 44, 55, 0.25) 0%,
     rgba(43, 44, 55, 0.125) 100%
   );
+  --shadow: 0px 10px 20px #{$color-shadow-dark};
 }

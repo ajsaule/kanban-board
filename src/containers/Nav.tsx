@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
 import { getId } from "../utils/helper";
-import BoardIcon from "./svgs/BoardIcon";
-import NavItem from "./SidebarItem";
+import BoardIcon from "../components/svgs/BoardIcon";
+import NavItem from "../components/SidebarItem";
 import styles from "../styles/components/Nav.module.scss";
 
 import BoardContext from "../store/board";

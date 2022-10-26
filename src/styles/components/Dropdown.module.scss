@@ -1,0 +1,54 @@
+@use "../abstract/mixins" as *;
+
+.dropdown {
+  position: relative;
+
+  &__btn:active + &__content,
+  &__btn:focus + &__content {
+    transition: all 0.2s;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__content {
+    position: absolute;
+    margin-top: 2.2rem;
+    z-index: 100;
+    right: 0;
+    width: 19.2rem;
+    background-color: var(--color-light);
+    box-shadow: var(--shadow);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &__list {
+    list-style: none;
+    // display: flex;
+  }
+
+  &__item {
+    text-align: start;
+    font-size: 1.3rem;
+    @include btnReset;
+    padding: 1.6rem;
+    width: 100%;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: var(--color-bg);
+    }
+
+    &.primary {
+      color: var(--color-primary);
+    }
+
+    &.secondary {
+      color: var(--color-secondary);
+    }
+  }
+}
