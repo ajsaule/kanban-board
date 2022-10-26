@@ -11,11 +11,7 @@ import AddModalContext from "../store/add-modal";
 const Nav = () => {
   const { boardNames, selectedBoard, setSelectedBoard } =
     useContext(BoardContext);
-<<<<<<< HEAD
-  // const boards = ["platform launch", "marketing plan", "roadmap"];
-=======
   const { toggleAddBoardModal } = useContext(AddModalContext);
->>>>>>> f1c5c2cf8f167982d936e722d7fbdeb8b8457d44
 
   return (
     <ul className={styles["nav"]}>
