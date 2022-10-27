@@ -14,6 +14,8 @@
   --color-white: #{$color-white};
   --color-medium-grey: #{$color-grey-1};
   --color-medium-grey-opacity: #{$color-grey-1-opacity};
+  --banner-height: 9.5rem;
+  --sidebar-width: 30rem;
 
   // DEFAULT THEME
   @include themes.light-theme;
@@ -28,8 +30,9 @@ html {
 
 body {
   font: $font-weight $font-size $font-primary;
-  color: var(--color-text);
   line-height: $line-height;
+  color: var(--color-text);
+  background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -39,7 +42,11 @@ body {
   @include themes.dark-theme;
 }
 
+.app {
+  height: 100vh;
+}
+
 .board-container {
   display: flex;
-  height: 100vh;
+  height: calc(100% - var(--banner-height));
 }

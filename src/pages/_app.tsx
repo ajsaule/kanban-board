@@ -4,15 +4,21 @@ import { ThemeProvider } from "../store/theme";
 import { ViewModalProvider } from "../store/view-modal";
 import { AddModalProvider } from "../store/add-modal";
 import { BoardProvider } from "../store/board";
+import { SidebarProvider } from "../store/sidebar";
+import { DeleteModalProvider } from "../store/delete-modal";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider>
       <ViewModalProvider>
         <AddModalProvider>
-          <BoardProvider>
-            <Component {...pageProps} />
-          </BoardProvider>
+          <DeleteModalProvider>
+            <BoardProvider>
+              <SidebarProvider>
+                <Component {...pageProps} />
+              </SidebarProvider>
+            </BoardProvider>
+          </DeleteModalProvider>
         </AddModalProvider>
       </ViewModalProvider>
     </ThemeProvider>

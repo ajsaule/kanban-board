@@ -1,37 +1,37 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
-import Board from "../components/Board";
-import BoardModalAdd from "../components/BoardModalAdd";
-import ColumnModalAdd from "../components/ColumnModalAdd";
-import Sidebar from "../components/SideBar";
-import TaskModalAdd from "../components/TaskModalAdd";
-import TaskModalView from "../components/TaskModalView";
+import Banner from "../containers/Banner";
+import BoardModalAdd from "../components/Modal/AddBoardModal";
+import ColumnModalAdd from "../components/Modal/AddColumnModal";
+import ShowSidebarButton from "../components/ShowSidebarButton";
+import TaskModalAdd from "../components/Modal/AddTaskModal";
+import TaskModalView from "../components/Modal/ViewTaskModal";
+import Dashboard from "../containers/Dashboard";
 
 import AddModalContext from "../store/add-modal";
-import BoardContext from "../store/board";
+import SidebarContext from "../store/sidebar";
 import ViewModalContext from "../store/view-modal";
+import DeleteModal from "../components/Modal/DeleteModal";
 
 function HomePage() {
-  const [isSidebarHidden, setIsSidebarHidden] = useState(false);
+  const { isHidden, showSidebar } = useContext(SidebarContext);
   const { isViewOpen } = useContext(ViewModalContext);
   const { isAddTaskOpen, isAddColOpen, isAddBoardOpen } =
     useContext(AddModalContext);
 
   return (
-    <div className="board-container">
+    <>
       {isViewOpen && <TaskModalView />}
       {isAddTaskOpen && <TaskModalAdd />}
       {isAddColOpen && <ColumnModalAdd />}
       {isAddBoardOpen && <BoardModalAdd />}
-      <Sidebar
-        isSidebarHidden={isSidebarHidden}
-        setIsSidebarHidden={setIsSidebarHidden}
-      />
-      <Board
-        isSidebarHidden={isSidebarHidden}
-        setIsSidebarHidden={setIsSidebarHidden}
-      />
-    </div>
+      <DeleteModal />
+      <div className="app">
+        <Banner isSidebarHidden={isHidden} />
+        <Dashboard />
+      </div>
+      {isHidden && <ShowSidebarButton showSidebar={showSidebar} />}
+    </>
   );
 }
 

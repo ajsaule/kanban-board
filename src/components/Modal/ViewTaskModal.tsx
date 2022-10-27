@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 
-import CheckboxItem from "./CheckboxItem";
-import Dropdown from "./Dropdown";
-import Modal from "./Modal";
-import ViewModalContext from "../store/view-modal";
+import CheckboxItem from "../CheckboxItem";
+import Dropdown from "../MySelect";
+import Modal from ".";
+import ViewModalContext from "../../store/view-modal";
 
-import styles from "../styles/components/TaskModalView.module.scss";
-import Button from "./Button";
-import BoardContext from "../store/board";
+import EditBtn from "../../containers/EditBtn";
+import BoardContext from "../../store/board";
+import styles from "../../styles/components/TaskModalView.module.scss";
 
 const TaskModalView = () => {
   const { onViewClose } = useContext(ViewModalContext);
@@ -17,7 +17,7 @@ const TaskModalView = () => {
     <Modal className={styles["modal-wrapper"]} onClose={onViewClose}>
       <h1 className={styles["modal-wrapper__heading"]}>
         {selectedTask?.task.title}
-        <Button variant="dots" />
+        <EditBtn type="task" />
       </h1>
       <p className={styles["modal-wrapper__body"]}>
         {selectedTask?.task.description}

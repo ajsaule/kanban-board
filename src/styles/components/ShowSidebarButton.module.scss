@@ -1,0 +1,19 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 5.6rem;
+  height: 4.8rem;
+  left: 0;
+  bottom: 3rem;
+  background: var(--color-primary);
+  border-radius: 0 10rem 10rem 0;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: var(--color-primary-light);
+  }
+}
