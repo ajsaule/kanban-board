@@ -15,7 +15,7 @@ const TextBox = ({
   subtaskIdx = -1,
   placeholder = "",
   variant = "title",
-  onChange = false,
+  onChange = () => {},
   value = "",
   removeSubtask,
 }: PropsType) => {
