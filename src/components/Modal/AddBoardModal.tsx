@@ -35,7 +35,9 @@ const BoardModalAdd = () => {
           value={boardName}
         />
       </form>
-      <Button fullWidth>Add Board</Button>
+      <Button onClick={submitHandler} fullWidth>
+        Add Board
+      </Button>
     </Modal>
   );
 };
