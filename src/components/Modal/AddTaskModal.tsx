@@ -115,7 +115,7 @@ const TaskModalAdd = () => {
           <Dropdown
             onChange={handleStatusChange}
             defaultValue={selectedColumn.column}
-            options={columns.map((column) => {
+            options={columns?.map((column) => {
               return { value: column.name.toLowerCase(), label: column.name };
             })}
           />
