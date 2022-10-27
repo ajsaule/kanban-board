@@ -11,6 +11,7 @@ import Dashboard from "../containers/Dashboard";
 import AddModalContext from "../store/add-modal";
 import SidebarContext from "../store/sidebar";
 import ViewModalContext from "../store/view-modal";
+import DeleteModal from "../components/Modal/DeleteModal";
 
 function HomePage() {
   const { isHidden, showSidebar } = useContext(SidebarContext);
@@ -24,6 +25,7 @@ function HomePage() {
       {isAddTaskOpen && <TaskModalAdd />}
       {isAddColOpen && <ColumnModalAdd />}
       {isAddBoardOpen && <BoardModalAdd />}
+      <DeleteModal />
       <div className="app">
         <Banner isSidebarHidden={isHidden} />
         <Dashboard />

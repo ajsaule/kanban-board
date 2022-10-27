@@ -19,7 +19,7 @@ const Dropdown = ({ items }: Props) => {
             <li key={getId()}>
               <button
                 className={`${styles["dropdown__item"]} ${
-                  item.color ? styles[item.color] : ""
+                  item.color ? `u-${item.color}` : ""
                 }`}
                 onClick={item.onClick}
               >

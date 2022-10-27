@@ -8,3 +8,5 @@ export type DropdownItem = {
   onClick: () => void;
   color?: "primary" | "secondary";
 };
+
+export type EditOptionsType = "task" | "board";

@@ -1,17 +1,27 @@
+import { useContext } from "react";
 import Dropdown from "../components/Dropdown";
-import { DropdownItem } from "../models/type";
+import { DropdownItem, EditOptionsType } from "../models/type";
+import DeleteModalContext from "../store/delete-modal";
 
-type Props = { type: "task" | "board" };
+const EditBtn = ({ type = "task" }: { type: EditOptionsType }) => {
+  const { open } = useContext(DeleteModalContext);
 
-const EditBtn = ({ type = "task" }: Props) => {
   const boardItems: DropdownItem[] = [
     { name: "Edit board", onClick: () => {} },
-    { name: "Delete board", onClick: () => {}, color: "secondary" },
+    {
+      name: "Delete board",
+      onClick: open.bind(null, "board"),
+      color: "secondary",
+    },
   ];
 
   const taskItems: DropdownItem[] = [
     { name: "Edit task", onClick: () => {} },
-    { name: "Delete task", onClick: () => {}, color: "secondary" },
+    {
+      name: "Delete task",
+      onClick: open.bind(null, "task"),
+      color: "secondary",
+    },
   ];
 
   if (type === "board") return <Dropdown items={boardItems} />;
