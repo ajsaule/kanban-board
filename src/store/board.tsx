@@ -7,20 +7,42 @@ type BoardType = {
   hasColumns: boolean;
   boardNames: string[];
   columnNames: string[];
-  columns: [{}];
-  setBoardData: (data: {}) => void;
+  columns: any; // todo: @andrej come back and fix this typechecking
+  // [
+  //   {
+  //     name: string;
+  //     tasks: [
+  //       {
+  //         title: string;
+  //         status: string;
+  //         description: string;
+  //         subtasks: [{ title: string; isCompleted: boolean }];
+  //       }
+  //     ];
+  //   }
+  // ];
+  setBoardData: (data: any) => void;
   selectedBoard: { board: string; idx: number };
-  setSelectedBoard: (board: {}) => void;
-  addColumn: (col: {}) => void;
-  addBoard: (board: {}) => void;
+  setSelectedBoard: (board: { board: string; idx: number }) => void;
+  addColumn: (colName: string) => void;
+  addBoard: (boardName: string) => void;
   selectedColumn: {
     column: string;
     idx: number;
-    colAddButton: false;
+    colAddButton: boolean;
   };
-  setSelectedColumn: (column: {}) => void;
-  addTask: (task: {}) => void;
-  updateTask: (task: {}) => void;
+  setSelectedColumn: (column: {
+    column: string;
+    idx: number;
+    colAddButton: boolean;
+  }) => void;
+  addTask: (task: {
+    description: string;
+    status: string;
+    subtasks: [];
+    title: string;
+  }) => void;
+  updateTask: (task: { value: string; label: string }) => void;
   selectedTask: {
     task: {};
     completedSubtasks: number;
@@ -39,11 +61,23 @@ const BoardContext = createContext<BoardType>({
   hasColumns: false,
   boardNames: [],
   columnNames: [],
-  columns: [{}],
+  columns: [
+    {
+      name: "",
+      tasks: [
+        {
+          title: "",
+          status: "",
+          description: "",
+          subtasks: [{ title: "", isCompleted: false }],
+        },
+      ],
+    },
+  ],
   setBoardData: (data) => {},
   selectedBoard: { board: "", idx: -1 },
   setSelectedBoard: (board) => {},
-  addColumn: (col) => {},
+  addColumn: (colName) => {},
   addBoard: (board) => {},
   selectedColumn: {
     column: "",
@@ -87,6 +121,8 @@ export const BoardProvider = ({ children }: PropsType) => {
 
   const columns = boardData.boards[selectedBoard?.idx]?.columns;
 
+  console.log("test1234", boardData.boards[selectedBoard?.idx]?.columns);
+
   const addBoard = (boardName: string) => {
     const obj = boardData;
     obj.boards.push({
@@ -129,7 +165,8 @@ export const BoardProvider = ({ children }: PropsType) => {
     console.log(obj);
   };
 
-  const updateTask = (updatedStatus) => {
+  const updateTask = (updatedStatus: { value: string; label: string }) => {
+    console.log("testes4321", updatedStatus);
     const obj = boardData;
     // ? need to somehow get this status switch to move it into different column object as well as changing status too
     obj.boards[selectedBoard.idx].columns[selectedColumn.idx].tasks[

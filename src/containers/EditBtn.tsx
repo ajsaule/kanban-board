@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import Dropdown from "../components/Dropdown";
+import Dropdown from "../components/DropDown";
 import { DropdownItem, EditOptionsType } from "../models/type";
 import DeleteModalContext from "../store/delete-modal";
 

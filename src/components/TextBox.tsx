@@ -3,21 +3,21 @@ import SubtaskIcon from "./svgs/SubtaskIcon";
 import styles from "../styles/components/TextBox.module.scss";
 
 type PropsType = {
-  subtaskIdx?: number;
   placeholder?: string;
   variant?: "title" | "description" | "subtask";
   onChange?: (e: any, ...rest: any) => void;
   value: string;
   removeSubtask?: () => void;
+  subtaskIdx?: number;
 };
 
 const TextBox = ({
-  subtaskIdx = -1,
   placeholder = "",
   variant = "title",
-  onChange = false,
+  onChange = () => {},
   value = "",
   removeSubtask,
+  subtaskIdx = -1,
 }: PropsType) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

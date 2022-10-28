@@ -1,3 +1,5 @@
+// @ts-nocheck
+// todo: @andrej fix TS errors in this file
 import React, { useContext } from "react";
 import Select, { StylesConfig, GroupBase, OptionsOrGroups } from "react-select";
 import { OptionType } from "../models/type";

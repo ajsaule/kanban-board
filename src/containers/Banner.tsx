@@ -27,16 +27,24 @@ const Banner = ({ isSidebarHidden }: { isSidebarHidden: boolean }) => {
           {selectedBoard.board}
         </h1>
         <div className={styles["button-wrapper"]}>
-          <Button
-            onClick={() => {
-              setSelectedColumn({ column: "", idx: -1, colAddButton: false });
-              toggleAddTaskModal();
-            }}
-            size="large"
-          >
-            + Add New Task
-          </Button>
-          <EditBtn type="board" />
+          {selectedBoard.board && (
+            <>
+              <Button
+                onClick={() => {
+                  setSelectedColumn({
+                    column: "",
+                    idx: -1,
+                    colAddButton: false,
+                  });
+                  toggleAddTaskModal();
+                }}
+                size="large"
+              >
+                + Add New Task
+              </Button>
+              <EditBtn type="board" />
+            </>
+          )}
         </div>
       </div>
     </header>

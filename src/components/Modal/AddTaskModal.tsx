@@ -1,3 +1,5 @@
+// @ts-nocheck
+// todo: @andrej fix TS errors in this file
 import React, { useCallback, useContext, useState } from "react";
 import Dropdown from "../MySelect";
 import Modal from ".";
@@ -113,7 +115,7 @@ const TaskModalAdd = () => {
           <Dropdown
             onChange={handleStatusChange}
             defaultValue={selectedColumn.column}
-            options={columns.map((column) => {
+            options={columns?.map((column) => {
               return { value: column.name.toLowerCase(), label: column.name };
             })}
           />
