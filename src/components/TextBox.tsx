@@ -6,7 +6,11 @@ type PropsType = {
   placeholder?: string;
   variant?: "title" | "description" | "subtask";
   onChange?: (e: any, ...rest: any) => void;
+  onBlur?: (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
+  ) => void;
   value: string;
+  error?: string;
   removeSubtask?: () => void;
   subtaskIdx?: number;
 };
@@ -14,53 +18,42 @@ type PropsType = {
 const TextBox = ({
   placeholder = "",
   variant = "title",
-  onChange = () => {},
+  onChange,
+  onBlur,
+  error,
   value = "",
   removeSubtask,
-  subtaskIdx = -1,
 }: PropsType) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [subtask, setSubtask] = useState("");
-
-  useEffect(() => {
-    if (subtaskIdx > -1) onChange(subtask, subtaskIdx);
-  }, [subtask]);
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setDescription(e.target.value);
-  };
-
-  const handleSubtaskChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSubtask(e.target.value);
-  };
+  const classes = `${styles["input-field"]} ${error ? styles.invalid : ""}`;
 
   if (variant === "title") {
     return (
-      <input
-        value={value || title}
-        type="text"
-        className={styles["input-field"]}
-        placeholder={placeholder}
-        onChange={onChange || handleTitleChange}
-      />
+      <>
+        <input
+          value={value}
+          type="text"
+          onBlur={onBlur}
+          className={classes}
+          placeholder={placeholder}
+          onChange={onChange}
+        />
+        {error && <p className={styles.error}>{error}</p>}
+      </>
     );
   }
 
   if (variant === "description") {
     return (
-      <textarea
-        value={value || description}
-        className={`${styles["input-field"]} ${styles["input-field__description"]}`}
-        placeholder={placeholder}
-        onChange={onChange || handleDescriptionChange}
-      />
+      <>
+        <textarea
+          value={value}
+          className={`${classes} ${styles["input-field__description"]}`}
+          placeholder={placeholder}
+          onBlur={onBlur}
+          onChange={onChange}
+        />
+        {error && <p className={styles.error}>{error}</p>}
+      </>
     );
   }
 
@@ -69,10 +62,10 @@ const TextBox = ({
       <div style={{ display: "flex", alignItems: "center" }}>
         <input
           type="text"
-          value={subtask}
-          className={`${styles["input-field"]} ${styles["input-field__subtask"]}`}
+          value={value}
+          className={`${classes} ${styles["input-field__subtask"]}`}
           placeholder={placeholder}
-          onChange={handleSubtaskChange}
+          onChange={onChange}
         />
         <SubtaskIcon
           className={styles["input-field__subtask__icon"]}
