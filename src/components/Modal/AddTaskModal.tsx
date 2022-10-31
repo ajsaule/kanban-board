@@ -1,6 +1,6 @@
 // @ts-nocheck
 // todo: @andrej fix TS errors in this file
-import React, { useCallback, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import Dropdown from "../MySelect";
 import Modal from ".";
 import TextBox from "../TextBox";
@@ -9,41 +9,62 @@ import AddModalContext from "../../store/add-modal";
 
 import styles from "../../styles/components/TaskModalAdd.module.scss";
 import BoardContext from "../../store/board";
+import useInput from "../../hooks/use-input";
+import { getId } from "../../utils/helper";
+
+class Subtask {
+  public readonly id: string = getId();
+  public title: string = "";
+  public isCompleted: boolean = false;
+
+  setTitle(title: string) {
+    this.title = title;
+  }
+
+  complete() {
+    this.isCompleted = true;
+  }
+
+  inComplete() {
+    this.isCompleted = false;
+  }
+}
 
 const TaskModalAdd = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [subtasks, setSubtasks] = useState<string[] | {}[]>(["1"]);
+  const {
+    value: title,
+    error: titleError,
+    isValid: isTitleValid,
+    changeHandler: titleChangeHandler,
+    blurHandler: titleBlurHandler,
+  } = useInput({
+    required: "Can't be empty",
+  });
+
+  const {
+    value: description,
+    error: descriptionError,
+    isValid: isDescriptionValid,
+    changeHandler: descriptionChangeHandler,
+    blurHandler: descriptionBlurHandler,
+  } = useInput({
+    required: "Can't be empty",
+  });
+
+  // const [description, setDescription] = useState("");
+  const [subtasks, setSubtasks] = useState<Subtask[]>([new Subtask()]);
   const [status, setStatus] = useState("");
-  // ? Not sure if we should be use forceUpdate, might not be considered the react way of doing things? Not pure..
-  const [, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
   const { addTask, selectedColumn, columns } = useContext(BoardContext);
   const { onAddClose } = useContext(AddModalContext);
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleDescriptionChange = (e) => setDescription(e.target.value);
-  const handleSubtasksChange = (subtaskTitle, idx) => {
-    const arr = subtasks;
-    arr[idx] = {
-      title: subtaskTitle,
-      isCompleted: false,
-    };
-    setSubtasks(arr);
-    forceUpdate(); // ? This is hacky but for some reason the setState above is not enough to rerender
-  };
   const handleStatusChange = (column) => setStatus(column);
 
   const addSubtask = () => {
-    const arr = subtasks;
-    arr.push("1");
-    setSubtasks(arr);
+    setSubtasks((tasks) => [...tasks, new Subtask()]);
   };
 
-  const removeSubtask = (idx) => {
-    let arr = subtasks;
-    arr = arr.filter((subtask, index) => index !== idx);
-    setSubtasks(arr);
+  const removeSubtask = (id) => {
+    setSubtasks((tasks) => tasks.filter((t) => t.id !== id));
   };
 
   const saveTask = () => {
@@ -57,7 +78,7 @@ const TaskModalAdd = () => {
 
   return (
     <Modal className={styles["modal-wrapper"]} onClose={onAddClose}>
-      <h1 className={styles["modal-wrapper__heading"]}>
+      <h1 className="h-l">
         Add New Task
         {selectedColumn.column
           ? " to " + selectedColumn.column + " column"
@@ -66,7 +87,13 @@ const TaskModalAdd = () => {
 
       <div>
         <h4>Title</h4>
-        <TextBox variant="title" onChange={handleTitleChange} value={title} />
+        <TextBox
+          value={title}
+          variant="title"
+          error={titleError}
+          onChange={titleChangeHandler}
+          onBlur={titleBlurHandler}
+        />
       </div>
 
       <div>
@@ -75,34 +102,39 @@ const TaskModalAdd = () => {
           variant="description"
           placeholder="e.g. It’s always good to take a break. This 15 minute break will 
           recharge the batteries a little."
-          onChange={handleDescriptionChange}
           value={description}
+          onChange={descriptionChangeHandler}
+          onBlur={descriptionBlurHandler}
+          error={descriptionError}
         />
       </div>
 
       <div className={styles["modal-wrapper__subtasks"]}>
         <h4>Subtasks</h4>
-        {subtasks.map((subtask, idx) => (
+        {subtasks.map((subtask) => (
           <TextBox
-            key={idx}
-            subtaskIdx={idx}
-            value={subtask != 1 && subtask.title}
+            key={subtask.id}
+            id={subtask.id}
+            value={subtask.title}
             placeholder="e.g. Make coffee"
             variant="subtask"
-            onChange={handleSubtasksChange}
-            removeSubtask={() => removeSubtask(idx)}
+            onChange={(e) => {
+              setSubtasks((tasks) => {
+                const task = tasks.find((t) => t.id === subtask.id);
+                task.setTitle(e.target.value);
+                return [...tasks];
+              });
+            }}
+            removeSubtask={() => removeSubtask(subtask.id)}
           />
         ))}
 
         <div className={styles["modal-wrapper__button-wrapper"]}>
           <Button
             color="secondary"
-            fullWidth={true}
             className={styles["secondary-button"]}
-            onClick={() => {
-              forceUpdate();
-              addSubtask();
-            }}
+            fullWidth
+            onClick={addSubtask}
           >
             <span>+ Add New Subtask</span>
           </Button>
