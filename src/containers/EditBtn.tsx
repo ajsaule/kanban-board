@@ -2,9 +2,11 @@ import { useContext } from "react";
 import Dropdown from "../components/DropDown";
 import { DropdownItem, EditOptionsType } from "../models/type";
 import DeleteModalContext from "../store/delete-modal";
+import EditModalContext from "../store/edit-modal";
 
 const EditBtn = ({ type = "task" }: { type: EditOptionsType }) => {
   const { open } = useContext(DeleteModalContext);
+  const { toggleEditTaskModal } = useContext(EditModalContext);
 
   const boardItems: DropdownItem[] = [
     { name: "Edit board", onClick: () => {} },
@@ -16,7 +18,10 @@ const EditBtn = ({ type = "task" }: { type: EditOptionsType }) => {
   ];
 
   const taskItems: DropdownItem[] = [
-    { name: "Edit task", onClick: () => {} },
+    {
+      name: "Edit task",
+      onClick: () => toggleEditTaskModal(),
+    },
     {
       name: "Delete task",
       onClick: open.bind(null, "task"),

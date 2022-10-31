@@ -24,6 +24,7 @@ const TextBox = ({
   value = "",
   removeSubtask,
 }: PropsType) => {
+
   const classes = `${styles["input-field"]} ${error ? styles.invalid : ""}`;
 
   if (variant === "title") {

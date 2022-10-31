@@ -16,7 +16,7 @@
 
   .column {
     min-width: 290px;
-    overflow: auto; // todo: can we hide overflow and show it only on hover, with a smooth fade in animation?
+    overflow: scroll; // todo: can we hide overflow on columns and show it only on hover, with a smooth fade in animation?
 
     .column-heading {
       padding-bottom: 5px;
