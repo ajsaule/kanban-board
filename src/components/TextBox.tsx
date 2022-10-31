@@ -21,7 +21,7 @@ const TextBox = ({
 }: PropsType) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [subtask, setSubtask] = useState("");
+  const [subtask, setSubtask] = useState(value || "");
 
   useEffect(() => {
     if (subtaskIdx > -1) onChange(subtask, subtaskIdx);
