@@ -218,12 +218,42 @@
 }
 ```
 
+---
+
+#### `DELETE - /board/{boardId}`
+
+- Deletes a single board based on the id passed in the route
+
+---
+
+#### `DELETE - /column/{columnId}`
+
+- Deletes a single column based on the id passed in the route
+
+---
+
+#### `DELETE - /task/{taskId}`
+
+- Deletes a single task based on the id passed in the route
+
+---
+
 <br>
 
-_**Nice to have**_ but not necessary
+## _**Nice to have**_ but not necessary
 
-`GET - /board/{boardId}`
+#### `GET - /board/{boardId}`
 
-`GET - /columns/{boardId}`
+- Gets a single board with all relevant properties based on the id passed in the route
 
-`GET - /tasks/{columnId}`
+---
+
+#### `GET - /columns/{boardId}`
+
+- Gets an array of columns with all relevant properties based on the id passed in the route
+
+---
+
+#### `GET - /tasks/{columnId}`
+
+- Gets an array of tasks with all relevant properties based on the id passed in the route
