@@ -31,12 +31,19 @@ class Subtask {
 }
 
 const TaskModalAdd = () => {
+  // const [description, setDescription] = useState("");
+  const [subtasks, setSubtasks] = useState<Subtask[]>([new Subtask()]);
+  const [status, setStatus] = useState("");
+  const { addTask, selectedColumn, columns } = useContext(BoardContext);
+  const { onAddClose } = useContext(AddModalContext);
+
   const {
     value: title,
     error: titleError,
     isValid: isTitleValid,
     changeHandler: titleChangeHandler,
     blurHandler: titleBlurHandler,
+    onSubmit: titleSubmit,
   } = useInput({
     required: "Can't be empty",
   });
@@ -47,15 +54,12 @@ const TaskModalAdd = () => {
     isValid: isDescriptionValid,
     changeHandler: descriptionChangeHandler,
     blurHandler: descriptionBlurHandler,
+    onSubmit: descriptionSubmit,
   } = useInput({
     required: "Can't be empty",
   });
 
-  // const [description, setDescription] = useState("");
-  const [subtasks, setSubtasks] = useState<Subtask[]>([new Subtask()]);
-  const [status, setStatus] = useState("");
-  const { addTask, selectedColumn, columns } = useContext(BoardContext);
-  const { onAddClose } = useContext(AddModalContext);
+  const isFormValid = isTitleValid && isDescriptionValid;
 
   const handleStatusChange = (column) => setStatus(column);
 
@@ -68,10 +72,14 @@ const TaskModalAdd = () => {
   };
 
   const saveTask = () => {
+    // check if subtasks title is empty, if empty, remove it
+    const validSubtasks = subtasks.filter(
+      (subtask) => subtask.title.trim().length > 0
+    );
     addTask({
       description: description,
       status: selectedColumn.colAddButton ? selectedColumn.column : status,
-      subtasks: subtasks,
+      subtasks: validSubtasks,
       title: title,
     });
   };
@@ -155,8 +163,10 @@ const TaskModalAdd = () => {
       )}
       <Button
         onClick={() => {
-          saveTask();
-          onAddClose();
+          titleSubmit();
+          descriptionSubmit();
+          isFormValid && saveTask();
+          isFormValid && onAddClose();
         }}
       >
         <span>Save Changes</span>
