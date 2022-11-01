@@ -98,7 +98,7 @@
 
 ---
 
-#### `POST - /column/{boardId}`
+#### `POST - /board/{boardId}/column`
 
 - Adds a single column to existing board
 
@@ -112,7 +112,7 @@
 
 ---
 
-#### `POST - /task/{columnId}`
+#### `POST - /column/{columnId}/task`
 
 - Adds a single task (with subtasks) to existing column
 
@@ -208,7 +208,7 @@
 
 ---
 
-#### `PATCH - /task/status/{taskId}`
+#### `PATCH - /task/{taskId}/status`
 
 - Updates a single tasks status, shifting it to the correct column that we are updating it to
 
@@ -248,12 +248,12 @@
 
 ---
 
-#### `GET - /columns/{boardId}`
+#### `GET - /board/{boardId}/columns`
 
 - Gets an array of columns with all relevant properties based on the id passed in the route
 
 ---
 
-#### `GET - /tasks/{columnId}`
+#### `GET - /column/{columnId}/tasks`
 
 - Gets an array of tasks with all relevant properties based on the id passed in the route
