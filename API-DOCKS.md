@@ -43,7 +43,7 @@
 
 ```
 
-### Endpoints
+## Endpoints
 
 #### `GET - /boards`
 
