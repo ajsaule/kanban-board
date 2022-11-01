@@ -146,23 +146,7 @@
 
 ```js
 {
-  title: "New task",
-  description: "",
-  status: "Todo",
-  subtasks: [
-    {
-      title: "Sign up page",
-      isCompleted: true
-    },
-    {
-      title: "Sign in page",
-      isCompleted: false
-    },
-    {
-      title: "Welcome page",
-      isCompleted: false
-    }
-  ]
+  name: "New board name",
 }
 ```
 
@@ -174,7 +158,7 @@
 
 ```js
 {
-  name: "Todo",
+  name: "To finalise",
 }
 ```
 
@@ -188,7 +172,7 @@
 {
   title: "Update task",
   description: "This is an updated task",
-  status: "Done",
+  status: "Updated",
   subtasks: [
     {
       title: "Landing page",
