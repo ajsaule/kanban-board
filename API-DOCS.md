@@ -47,7 +47,7 @@
 
 #### `GET - /boards`
 
-- Returns an array of boards and the subsequent data
+- Returns an array of boards and the subsequent properties
 
 ```js
 [
