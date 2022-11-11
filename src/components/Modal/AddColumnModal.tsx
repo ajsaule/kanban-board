@@ -8,18 +8,27 @@ import AddModalContext from "../../store/add-modal";
 import BoardContext from "../../store/board";
 
 import styles from "../../styles/components/TaskModalAdd.module.scss";
+import useInput from "../../hooks/use-input";
 
 const ColumnModalAdd = () => {
-  const [colName, setColName] = useState("");
   const { onAddColClose } = useContext(AddModalContext);
   const { addColumn } = useContext(BoardContext);
-
-  const handleColNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setColName(e.target.value);
-  };
+  const {
+    value: colName,
+    error: colError,
+    blurHandler: colBlurHandler,
+    changeHandler: colChangeHandler,
+    isValid: colIsValid,
+  } = useInput({
+    required: "Can't be empty!",
+  });
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!colIsValid) {
+      colBlurHandler();
+      return;
+    }
     addColumn(colName);
     onAddColClose();
   };
@@ -29,13 +38,17 @@ const ColumnModalAdd = () => {
       <h1 className={styles["modal-wrapper__heading"]}>Add New Column</h1>
       <form onSubmit={submitHandler}>
         <h4>Column Name</h4>
-        <TextBox // todo: need to add validation to the input field to stop from submitting empty col name
+        <TextBox
           variant="title"
-          onChange={handleColNameChange}
+          onChange={colChangeHandler}
+          onBlur={colBlurHandler}
+          error={colError}
           value={colName}
         />
+        <Button className={styles["form-btn"]} fullWidth>
+          Add Column
+        </Button>
       </form>
-      <Button>Add Column</Button>
     </Modal>
   );
 };

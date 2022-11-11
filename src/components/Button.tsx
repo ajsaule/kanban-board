@@ -20,7 +20,7 @@ export default function Button({
   size,
   variant,
   color = "primary",
-  type = "button",
+  type = "submit",
   centered = false,
   fullWidth = false,
   ...props

@@ -2,13 +2,16 @@
 // todo: @andrej fix TS errors in this file
 import React, { useContext } from "react";
 import Select, { StylesConfig, GroupBase, OptionsOrGroups } from "react-select";
+
 import { OptionType } from "../models/type";
 import ThemeContext from "../store/theme";
 
 type PropTypes = {
   defaultValue?: string;
   options: OptionType[];
-  onChange: () => void;
+  onChange:
+    | ((column: string) => void)
+    | ((task: { value: string; label: string }) => void);
 };
 
 const MySelect = ({ defaultValue = "", options, onChange }: PropTypes) => {
