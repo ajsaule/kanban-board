@@ -1,4 +1,3 @@
-// @ts-nocheck
 // todo: @andrej fix TS errors in this file
 import React, { useCallback, useContext, useState } from "react";
 import Dropdown from "../MySelect";
@@ -25,8 +24,12 @@ const EditTaskModal = () => {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleDescriptionChange = (e) => setDescription(e.target.value);
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setDescription(e.target.value);
+
   const handleSubtasksChange = (subtaskTitle, idx) => {
     const arr = subtasks;
     arr[idx] = {
@@ -36,7 +39,7 @@ const EditTaskModal = () => {
     setSubtasks(arr);
     forceUpdate(); // ? This is hacky but for some reason the setState above is not enough to rerender
   };
-  const handleStatusChange = (column) => setStatus(column);
+  const handleStatusChange = (columnName: string) => setStatus(columnName);
 
   const addSubtask = () => {
     const arr = subtasks;

@@ -1,0 +1,57 @@
+.column {
+  min-width: 290px;
+  overflow: scroll; // todo: can we hide overflow on columns and show it only on hover, with a smooth fade in animation?
+
+  .column-heading {
+    padding-bottom: 5px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    background-color: var(--color-bg);
+    color: var(--color-medium-grey);
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.24rem;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    .dot {
+      margin-right: 12px;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.new-task {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  margin-top: 20px;
+  height: 90px;
+  min-width: 280px;
+  background: var(--color-gradient);
+  color: var(--color-medium-grey);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: var(--color-primary);
+  }
+
+  span {
+    font-size: 2.4rem;
+    font-weight: 700;
+  }
+
+  &:active > span {
+    color: var(--color-primary);
+  }
+}

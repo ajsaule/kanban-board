@@ -1,5 +1,3 @@
-// @ts-nocheck
-// todo: @andrej fix TS errors in this file
 import React, { useContext, useState } from "react";
 import Dropdown from "../MySelect";
 import Modal from ".";
@@ -10,29 +8,11 @@ import AddModalContext from "../../store/add-modal";
 import styles from "../../styles/components/TaskModalAdd.module.scss";
 import BoardContext from "../../store/board";
 import useInput from "../../hooks/use-input";
-import { getId } from "../../utils/helper";
-
-class Subtask {
-  public readonly id: string = getId();
-  public title: string = "";
-  public isCompleted: boolean = false;
-
-  setTitle(title: string) {
-    this.title = title;
-  }
-
-  complete() {
-    this.isCompleted = true;
-  }
-
-  inComplete() {
-    this.isCompleted = false;
-  }
-}
+import { Subtask, Task } from "../../models";
 
 const TaskModalAdd = () => {
   // const [description, setDescription] = useState("");
-  const [subtasks, setSubtasks] = useState<Subtask[]>([new Subtask()]);
+  const [subtasks, setSubtasks] = useState<Subtask[] | []>([new Subtask()]);
   const [status, setStatus] = useState("");
   const { addTask, selectedColumn, columns } = useContext(BoardContext);
   const { onAddClose } = useContext(AddModalContext);
@@ -43,7 +23,6 @@ const TaskModalAdd = () => {
     isValid: isTitleValid,
     changeHandler: titleChangeHandler,
     blurHandler: titleBlurHandler,
-    onSubmit: titleSubmit,
   } = useInput({
     required: "Can't be empty",
   });
@@ -54,34 +33,38 @@ const TaskModalAdd = () => {
     isValid: isDescriptionValid,
     changeHandler: descriptionChangeHandler,
     blurHandler: descriptionBlurHandler,
-    onSubmit: descriptionSubmit,
   } = useInput({
     required: "Can't be empty",
   });
-
-  const isFormValid = isTitleValid && isDescriptionValid;
-
-  const handleStatusChange = (column) => setStatus(column);
-
-  const addSubtask = () => {
-    setSubtasks((tasks) => [...tasks, new Subtask()]);
-  };
-
-  const removeSubtask = (id) => {
-    setSubtasks((tasks) => tasks.filter((t) => t.id !== id));
-  };
 
   const saveTask = () => {
     // check if subtasks title is empty, if empty, remove it
     const validSubtasks = subtasks.filter(
       (subtask) => subtask.title.trim().length > 0
     );
-    addTask({
-      description: description,
-      status: selectedColumn.colAddButton ? selectedColumn.column : status,
-      subtasks: validSubtasks,
-      title: title,
-    });
+
+    addTask(new Task(title, description, selectedColumn.column, validSubtasks));
+  };
+
+  const handleStatusChange = (column: string) => setStatus(column);
+
+  const addSubtask = () => {
+    setSubtasks((tasks) => [...tasks, new Subtask()]);
+  };
+
+  const removeSubtask = (id: string) => {
+    setSubtasks((tasks) => tasks.filter((t) => t.id !== id));
+  };
+
+  const submitHandler = () => {
+    if (!isTitleValid || !isDescriptionValid) {
+      titleBlurHandler();
+      descriptionBlurHandler();
+      return;
+    }
+
+    saveTask();
+    onAddClose();
   };
 
   return (
@@ -122,14 +105,13 @@ const TaskModalAdd = () => {
         {subtasks.map((subtask) => (
           <TextBox
             key={subtask.id}
-            id={subtask.id}
             value={subtask.title}
             placeholder="e.g. Make coffee"
             variant="subtask"
             onChange={(e) => {
               setSubtasks((tasks) => {
                 const task = tasks.find((t) => t.id === subtask.id);
-                task.setTitle(e.target.value);
+                if (task) task.title = e.target.value;
                 return [...tasks];
               });
             }}
@@ -161,14 +143,7 @@ const TaskModalAdd = () => {
           />
         </div>
       )}
-      <Button
-        onClick={() => {
-          titleSubmit();
-          descriptionSubmit();
-          isFormValid && saveTask();
-          isFormValid && onAddClose();
-        }}
-      >
+      <Button onClick={submitHandler}>
         <span>Save Changes</span>
       </Button>
     </Modal>

@@ -8,18 +8,27 @@ import AddModalContext from "../../store/add-modal";
 import BoardContext from "../../store/board";
 
 import styles from "../../styles/components/TaskModalAdd.module.scss";
+import useInput from "../../hooks/use-input";
 
 const BoardModalAdd = () => {
-  const [boardName, setBoardName] = useState("");
   const { onAddBoardClose } = useContext(AddModalContext);
   const { addBoard } = useContext(BoardContext);
-
-  const handleBoardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBoardName(e.target.value);
-  };
+  const {
+    value: boardName,
+    error: boardError,
+    changeHandler: boardChangeHandler,
+    blurHandler: boardBlurHandler,
+    isValid: boardNameIsValid,
+  } = useInput({
+    required: "Can't be empty",
+  });
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!boardNameIsValid) {
+      boardBlurHandler();
+      return;
+    }
     addBoard(boardName);
     onAddBoardClose();
   };
@@ -29,15 +38,17 @@ const BoardModalAdd = () => {
       <h1 className={styles["modal-wrapper__heading"]}>Add New Board</h1>
       <form onSubmit={submitHandler}>
         <h4>Board Name</h4>
-        <TextBox // todo: need to add validation to the input field to stop from submitting empty board name
+        <TextBox
           variant="title"
-          onChange={handleBoardNameChange}
+          onChange={boardChangeHandler}
+          onBlur={boardBlurHandler}
+          error={boardError}
           value={boardName}
         />
+        <Button className={styles["form-btn"]} fullWidth>
+          Add Board
+        </Button>
       </form>
-      <Button onClick={submitHandler} fullWidth>
-        Add Board
-      </Button>
     </Modal>
   );
 };

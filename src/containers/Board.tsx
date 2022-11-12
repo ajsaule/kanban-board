@@ -1,41 +1,21 @@
-// @ts-nocheck
-// todo: @andrej fix TS errors in this file
 import React, { useContext } from "react";
 
 import Button from "../components/Button";
 import BoardContext from "../store/board";
 
-import ViewModalContext from "../store/view-modal";
 import AddModalContext from "../store/add-modal";
 import styles from "../styles/components/Board.module.scss";
 import SidebarContext from "../store/sidebar";
+import Column from "../components/Column";
+import { getId } from "../utils/helper";
 
 const Board = () => {
   const { isHidden: isSidebarHidden } = useContext(SidebarContext);
-  const { toggleAddColModal, toggleAddTaskModal } = useContext(AddModalContext);
-  const { toggleViewModal } = useContext(ViewModalContext);
-  const {
-    hasColumns,
-    columns,
-    selectedBoard,
-    selectedColumn,
-    setSelectedTask,
-    setSelectedColumn,
-  } = useContext(BoardContext);
+  const { toggleAddColModal } = useContext(AddModalContext);
+  const { columns, selectedBoard, selectedColumn } = useContext(BoardContext);
 
+  const hasColumns = columns?.length > 0;
   // const classes = `${styles["board"]} ${styles["board__no-columns"]}`;
-
-  const dotColors = [
-    "#49C4E5",
-    "#8471F2",
-    "#67E2AE",
-    "#49C4E5",
-    "#8471F2",
-    "#67E2AE",
-    "#49C4E5",
-    "#8471F2",
-    "#67E2AE",
-  ];
 
   console.log(selectedColumn);
 
@@ -47,66 +27,7 @@ const Board = () => {
     >
       <div className={hasColumns ? styles["board"] : styles["no-columns"]}>
         {columns?.map((column, idx) => {
-          return (
-            <div key={idx} className={styles["column"]}>
-              <span className={styles["column-heading"]}>
-                <div
-                  style={{ backgroundColor: `${dotColors[idx]}` }}
-                  className={styles["dot"]}
-                ></div>
-                {column.name} ({column.tasks.length})
-              </span>
-
-              {column.tasks?.map((task, index) => {
-                const subtaskCompletion = task.subtasks.map(
-                  (subtask) => subtask.isCompleted
-                );
-                let completedSubtasks = 0;
-                subtaskCompletion.forEach((completion) =>
-                  completion ? completedSubtasks++ : null
-                );
-
-                return (
-                  <div
-                    key={index}
-                    className={styles["task"]}
-                    onClick={() => {
-                      setSelectedTask({
-                        task: task,
-                        completedSubtasks: completedSubtasks,
-                        idx: index,
-                      });
-                      setSelectedColumn({
-                        column: column.name,
-                        idx: idx,
-                        colAddButton: false,
-                      });
-                      toggleViewModal();
-                    }}
-                  >
-                    <h4>{task.title}</h4>
-                    <h3>
-                      {completedSubtasks} of {task.subtasks.length} subtasks
-                    </h3>
-                  </div>
-                );
-              })}
-
-              <div
-                className={styles["new-task"]}
-                onClick={() => {
-                  setSelectedColumn({
-                    column: column.name,
-                    idx: idx,
-                    colAddButton: true,
-                  });
-                  toggleAddTaskModal();
-                }}
-              >
-                <span>+ New Task</span>
-              </div>
-            </div>
-          );
+          return <Column key={getId()} column={column} idx={idx} />;
         })}
 
         {hasColumns && (

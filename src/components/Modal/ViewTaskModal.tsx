@@ -1,5 +1,3 @@
-// @ts-nocheck
-// todo: @andrej fix TS errors in this file
 import React, { useContext } from "react";
 
 import CheckboxItem from "../CheckboxItem";
