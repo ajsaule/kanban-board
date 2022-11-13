@@ -8,17 +8,20 @@ import EditModalContext from "../../store/edit-modal";
 
 import styles from "../../styles/components/TaskModalAdd.module.scss";
 import BoardContext from "../../store/board";
+import { Subtask, Task } from "../../models";
+import AddModalContext from "../../store/add-modal";
 
 const EditTaskModal = () => {
   const { addTask, selectedColumn, columns, selectedTask } =
     useContext(BoardContext);
   const { onEditClose } = useContext(EditModalContext);
+  const { onAddClose } = useContext(AddModalContext);
 
   console.log("task123", selectedTask.task.subtasks);
 
   const [title, setTitle] = useState(selectedTask.task.title);
   const [description, setDescription] = useState(selectedTask.task.description);
-  const [subtasks, setSubtasks] = useState<string[] | {}[]>(["1"]);
+  const [subtasks, setSubtasks] = useState<Subtask[] | []>([new Subtask()]);
   const [status, setStatus] = useState("");
   // ? Not sure if we should be use forceUpdate, might not be considered the react way of doing things? Not pure..
   const [, updateState] = useState();
@@ -30,27 +33,21 @@ const EditTaskModal = () => {
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDescription(e.target.value);
 
-  const handleSubtasksChange = (subtaskTitle, idx) => {
-    const arr = subtasks;
-    arr[idx] = {
-      title: subtaskTitle,
-      isCompleted: false,
-    };
-    setSubtasks(arr);
-    forceUpdate(); // ? This is hacky but for some reason the setState above is not enough to rerender
+  const handleSubtasksChange = (e, subtask, subtaskTitle, idx) => {
+    setSubtasks((tasks) => {
+      const task = tasks.find((t) => t.id === subtask.id);
+      if (task) task.title = e.target.value;
+      return [...tasks];
+    });
   };
   const handleStatusChange = (columnName: string) => setStatus(columnName);
 
   const addSubtask = () => {
-    const arr = subtasks;
-    arr.push("1");
-    setSubtasks(arr);
+    setSubtasks((tasks) => [...tasks, new Subtask()]);
   };
 
-  const removeSubtask = (idx) => {
-    let arr = subtasks;
-    arr = arr.filter((subtask, index) => index !== idx);
-    setSubtasks(arr);
+  const removeSubtask = (id: string) => {
+    setSubtasks((tasks) => tasks.filter((t) => t.id !== id));
   };
 
   const saveTask = () => {
@@ -94,7 +91,7 @@ const EditTaskModal = () => {
               value={subtask.title}
               placeholder="e.g. Make coffee"
               variant="subtask"
-              onChange={handleSubtasksChange}
+              onChange={(e) => handleSubtasksChange(e, subtask)}
               removeSubtask={() => removeSubtask(idx)}
             />
           );
