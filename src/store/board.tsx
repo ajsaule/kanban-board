@@ -24,6 +24,7 @@ type BoardType = {
     colAddButton: boolean;
   }) => void;
   addTask: (task: Task) => void;
+  moveTask: (taskId: string, fromColIndex: number, toColIndex: number) => void;
   updateTask: (task: { value: string; label: string }) => void;
   selectedTask: {
     task: Task;
@@ -61,6 +62,7 @@ const BoardContext = createContext<BoardType>({
     completedSubtasks: -1,
     idx: -1,
   },
+  moveTask: (taskId: string, fromColIndex: number, toColIndex: number) => {},
   setSelectedTask: () => {},
 });
 
@@ -74,6 +76,7 @@ export const BoardProvider = ({ children }: PropsType) => {
     idx: -1,
     colAddButton: false,
   });
+
   const [selectedTask, setSelectedTask] = useState({
     task: new Task("", "", ""),
     completedSubtasks: -1,
@@ -110,8 +113,35 @@ export const BoardProvider = ({ children }: PropsType) => {
 
   const addTask = (task: Task) => {
     const obj = boardData;
-    obj.boards[selectedBoard.idx]?.columns[selectedColumn.idx].tasks.push(task);
+    obj.boards[selectedBoard.idx]?.columns[selectedColumn.idx]?.tasks.push(
+      task
+    );
     console.log(obj);
+  };
+
+  const moveTask = (
+    taskId: string,
+    fromColIndex: number,
+    toColIndex: number
+  ) => {
+    if (fromColIndex === toColIndex) {
+      return;
+    }
+    const obj = boardData;
+    const board = obj.boards[selectedBoard.idx];
+    const tasks = board.columns[fromColIndex].tasks;
+
+    const draggedTask = tasks.find((task) => task.id === taskId)!;
+
+    // Removing selected task from current column
+    board.columns[fromColIndex].tasks = tasks.filter(
+      (task) => task.id !== taskId
+    );
+
+    // Adding to updated task to a new task
+    board.columns[toColIndex].tasks.push(draggedTask);
+
+    setBoardData((prev) => ({ ...prev, ...obj }));
   };
 
   const updateTask = (updatedStatus: { value: string; label: string }) => {
@@ -135,14 +165,13 @@ export const BoardProvider = ({ children }: PropsType) => {
       (column) => column.name === updatedStatus.label
     );
 
+    // Removing task from current column
     obj.boards[selectedBoard.idx].columns[selectedColumn.idx].tasks =
       tasks.filter((task) => task.id !== updatedTask.id);
     console.log(obj);
 
     // Adding to updated task to a new task
     obj.boards[selectedBoard.idx].columns[index].tasks.push(updatedTask);
-
-    // Removing task from current column
   };
 
   return (
@@ -161,6 +190,7 @@ export const BoardProvider = ({ children }: PropsType) => {
         selectedColumn,
         setSelectedColumn,
         addTask,
+        moveTask,
         updateTask,
         selectedTask,
         setSelectedTask,
