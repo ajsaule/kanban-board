@@ -57,6 +57,7 @@ const BoardContext = createContext<BoardType>({
   setSelectedColumn: (col) => {},
   addTask: (task: Task) => {},
   updateTask: (task) => {},
+  updateTaskStatus: (task) => {},
   selectedTask: {
     task: new Task("", "", ""),
     completedSubtasks: -1,
@@ -91,8 +92,6 @@ export const BoardProvider = ({ children }: PropsType) => {
   );
 
   const columns: Column[] = boardData.boards[selectedBoard?.idx]?.columns;
-
-  console.log("test1234", boardData.boards[selectedBoard?.idx]?.columns);
 
   const addBoard = (boardName: string) => {
     const obj = boardData;
@@ -144,8 +143,10 @@ export const BoardProvider = ({ children }: PropsType) => {
     setBoardData((prev) => ({ ...prev, ...obj }));
   };
 
-  const updateTask = (updatedStatus: { value: string; label: string }) => {
-    console.log("testes4321", updatedStatus);
+  const updateTaskStatus = (updatedStatus: {
+    value: string;
+    label: string;
+  }) => {
     const obj = boardData;
     const tasks =
       obj.boards[selectedBoard.idx]?.columns[selectedColumn.idx]?.tasks;

@@ -1,22 +1,56 @@
 // todo: @andrej fix TS errors in this file
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Dropdown from "../MySelect";
 import Modal from ".";
 import TextBox from "../TextBox";
 import Button from "../Button";
 import EditModalContext from "../../store/edit-modal";
 
-import styles from "../../styles/components/TaskModalAdd.module.scss";
 import BoardContext from "../../store/board";
 import { Subtask, Task } from "../../models";
 import AddModalContext from "../../store/add-modal";
 
+
 const EditTaskModal = () => {
-  const { addTask, selectedColumn, columns, selectedTask } =
+  const { updateTask, selectedColumn, columns, selectedTask, setSelectedTask } =
     useContext(BoardContext);
+  const { onViewClose } = useContext(ViewModalContext);
   const { onEditClose } = useContext(EditModalContext);
   const { onAddClose } = useContext(AddModalContext);
 
+  const [subtasks, setSubtasks] = useState<Subtask[]>([
+    ...selectedTask.task.subtasks,
+    new Subtask(),
+  ]);
+  const [status, setStatus] = useState(selectedTask.task.status);
+
+  const {
+    value: title,
+    error: titleError,
+    isValid: isTitleValid,
+    changeHandler: titleChangeHandler,
+    blurHandler: titleBlurHandler,
+    onSubmit: titleSubmit,
+  } = useInput({
+    required: "Can't be empty",
+    initialValue: selectedTask.task.title,
+  });
+
+  const {
+    value: description,
+    error: descriptionError,
+    isValid: isDescriptionValid,
+    changeHandler: descriptionChangeHandler,
+    blurHandler: descriptionBlurHandler,
+    onSubmit: descriptionSubmit,
+  } = useInput({
+    required: "Can't be empty",
+    initialValue: selectedTask.task.description,
+  });
+
+  const isFormValid = isTitleValid && isDescriptionValid;
+
+  const handleStatusChange = (column) => setStatus(column);
   console.log("task123", selectedTask.task.subtasks);
 
   const [title, setTitle] = useState(selectedTask.task.title);
@@ -51,13 +85,28 @@ const EditTaskModal = () => {
   };
 
   const saveTask = () => {
-    addTask({
+    // check if subtasks title is empty, if empty, remove it
+    const validSubtasks = subtasks.filter(
+      (subtask) => subtask.title.trim().length > 0
+    );
+    setSelectedTask((prev) => ({
+      ...prev,
+      task: {
+        description: description,
+        status: status,
+        subtasks: validSubtasks,
+        title: title,
+      },
+    }));
+    updateTask({
       description: description,
-      status: selectedColumn.colAddButton ? selectedColumn.column : status,
-      subtasks: subtasks,
+      status: status,
+      subtasks: validSubtasks,
       title: title,
     });
   };
+
+  console.log("task1234", selectedTask);
 
   return (
     <Modal className={styles["modal-wrapper"]} onClose={onEditClose}>
@@ -65,7 +114,13 @@ const EditTaskModal = () => {
 
       <div>
         <h4>Title</h4>
-        <TextBox variant="title" onChange={handleTitleChange} value={title} />
+        <TextBox
+          variant="title"
+          onChange={titleChangeHandler}
+          value={title}
+          onBlur={titleBlurHandler}
+          error={titleError}
+        />
       </div>
 
       <div>
@@ -74,16 +129,16 @@ const EditTaskModal = () => {
           variant="description"
           placeholder="e.g. It’s always good to take a break. This 15 minute break will 
           recharge the batteries a little."
-          onChange={handleDescriptionChange}
+          onChange={descriptionChangeHandler}
           value={description}
+          onBlur={descriptionBlurHandler}
+          error={descriptionError}
         />
       </div>
 
       <div className={styles["modal-wrapper__subtasks"]}>
         <h4>Subtasks</h4>
-        {selectedTask.task.subtasks.map((subtask, idx) => {
-          console.log(subtask.title);
-
+        {subtasks.map((subtask, idx) => {
           return (
             <TextBox
               key={idx}
@@ -103,7 +158,6 @@ const EditTaskModal = () => {
             fullWidth={true}
             className={styles["secondary-button"]}
             onClick={() => {
-              forceUpdate();
               addSubtask();
             }}
           >
@@ -117,8 +171,8 @@ const EditTaskModal = () => {
           <h4 className={styles["modal-wrapper__status"]}>Status</h4>
           <Dropdown
             onChange={handleStatusChange}
-            defaultValue={selectedColumn.column}
-            options={columns?.map((column) => {
+            defaultValue={status}
+            options={columns.map((column) => {
               return { value: column.name.toLowerCase(), label: column.name };
             })}
           />
@@ -126,8 +180,11 @@ const EditTaskModal = () => {
       )}
       <Button
         onClick={() => {
-          saveTask();
-          onAddClose();
+          titleSubmit();
+          descriptionSubmit();
+          isFormValid && saveTask();
+          isFormValid && onEditClose();
+          isFormValid && onViewClose();
         }}
       >
         <span>Save Changes</span>

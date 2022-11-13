@@ -3,10 +3,11 @@ import { useState } from "react";
 type Props = {
   required?: string;
   validate?: (value: string) => boolean;
+  initialValue?: string;
 };
 
-const useInput = ({ required, validate }: Props) => {
-  const [value, setValue] = useState("");
+const useInput = ({ required, validate, initialValue = "" }: Props) => {
+  const [value, setValue] = useState(initialValue || "");
   const [isTouched, setIsTouched] = useState(false);
 
   let error = "";

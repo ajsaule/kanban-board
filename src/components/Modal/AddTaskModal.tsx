@@ -5,7 +5,6 @@ import TextBox from "../TextBox";
 import Button from "../Button";
 import AddModalContext from "../../store/add-modal";
 
-import styles from "../../styles/components/TaskModalAdd.module.scss";
 import BoardContext from "../../store/board";
 import useInput from "../../hooks/use-input";
 import { Subtask, Task } from "../../models";
@@ -81,9 +80,9 @@ const TaskModalAdd = () => {
         <TextBox
           value={title}
           variant="title"
-          error={titleError}
           onChange={titleChangeHandler}
           onBlur={titleBlurHandler}
+          error={titleError}
         />
       </div>
 

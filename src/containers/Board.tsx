@@ -17,8 +17,18 @@ const Board = () => {
   const hasColumns = columns?.length > 0;
   // const classes = `${styles["board"]} ${styles["board__no-columns"]}`;
 
-  console.log(selectedColumn);
-
+  const dotColors = [
+    "#49C4E5",
+    "#8471F2",
+    "#67E2AE",
+    "#49C4E5",
+    "#8471F2",
+    "#67E2AE",
+    "#49C4E5",
+    "#8471F2",
+    "#67E2AE",
+  ];
+  
   return (
     <div
       className={`${styles["board__container"]} ${
