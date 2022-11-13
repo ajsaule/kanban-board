@@ -42,7 +42,13 @@ type BoardType = {
     subtasks: [];
     title: string;
   }) => void;
-  updateTask: (task: { value: string; label: string }) => void;
+  updateTask: (task: {
+    description: string;
+    status: string;
+    subtasks: [];
+    title: string;
+  }) => void;
+  updateTaskStatus: (task: { value: string; label: string }) => void;
   selectedTask: {
     task: {};
     completedSubtasks: number;
@@ -87,6 +93,7 @@ const BoardContext = createContext<BoardType>({
   setSelectedColumn: (col) => {},
   addTask: (task) => {},
   updateTask: (task) => {},
+  updateTaskStatus: (task) => {},
   selectedTask: {
     task: {},
     completedSubtasks: -1,
@@ -120,8 +127,6 @@ export const BoardProvider = ({ children }: PropsType) => {
   );
 
   const columns = boardData.boards[selectedBoard?.idx]?.columns;
-
-  console.log("test1234", boardData.boards[selectedBoard?.idx]?.columns);
 
   const addBoard = (boardName: string) => {
     const obj = boardData;
@@ -162,22 +167,37 @@ export const BoardProvider = ({ children }: PropsType) => {
       status: status,
       subtasks: subtasks,
     });
-    console.log(obj);
   };
 
-  const updateTask = (updatedStatus: { value: string; label: string }) => {
-    console.log("testes4321", updatedStatus);
+  const updateTaskStatus = (updatedStatus: {
+    value: string;
+    label: string;
+  }) => {
     const obj = boardData;
+    const task =
+      obj.boards[selectedBoard.idx].columns[selectedColumn.idx].tasks[
+        selectedTask.idx
+      ];
     // ? need to somehow get this status switch to move it into different column object as well as changing status too
     obj.boards[selectedBoard.idx].columns[selectedColumn.idx].tasks[
       selectedTask.idx
     ] = {
-      ...obj.boards[selectedBoard.idx]?.columns[selectedColumn.idx]?.tasks[
-        selectedTask.idx
-      ],
-      status: updatedStatus.label,
+      ...task,
+      status: updatedStatus,
     };
-    console.log(obj);
+  };
+
+  const updateTask = ({ description, status, subtasks, title }: Task) => {
+    const obj = boardData;
+    // ? need to somehow get this status switch to move it into different column object as well as changing status too
+    boardData.boards[selectedBoard.idx].columns[selectedColumn.idx].tasks[
+      selectedTask.idx
+    ] = {
+      description,
+      status,
+      subtasks,
+      title,
+    };
   };
 
   return (
@@ -197,6 +217,7 @@ export const BoardProvider = ({ children }: PropsType) => {
         selectedColumn,
         setSelectedColumn,
         addTask,
+        updateTaskStatus,
         updateTask,
         selectedTask,
         setSelectedTask,

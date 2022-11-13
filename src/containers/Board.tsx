@@ -37,8 +37,6 @@ const Board = () => {
     "#67E2AE",
   ];
 
-  console.log(selectedColumn);
-
   return (
     <div
       className={`${styles["board__container"]} ${

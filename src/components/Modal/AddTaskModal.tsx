@@ -7,10 +7,11 @@ import TextBox from "../TextBox";
 import Button from "../Button";
 import AddModalContext from "../../store/add-modal";
 
-import styles from "../../styles/components/TaskModalAdd.module.scss";
 import BoardContext from "../../store/board";
 import useInput from "../../hooks/use-input";
 import { getId } from "../../utils/helper";
+
+import styles from "../../styles/components/TaskModalAdd.module.scss";
 
 class Subtask {
   public readonly id: string = getId();
@@ -31,7 +32,6 @@ class Subtask {
 }
 
 const TaskModalAdd = () => {
-  // const [description, setDescription] = useState("");
   const [subtasks, setSubtasks] = useState<Subtask[]>([new Subtask()]);
   const [status, setStatus] = useState("");
   const { addTask, selectedColumn, columns } = useContext(BoardContext);
@@ -98,9 +98,9 @@ const TaskModalAdd = () => {
         <TextBox
           value={title}
           variant="title"
-          error={titleError}
           onChange={titleChangeHandler}
           onBlur={titleBlurHandler}
+          error={titleError}
         />
       </div>
 

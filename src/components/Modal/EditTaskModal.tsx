@@ -1,63 +1,108 @@
 // @ts-nocheck
 // todo: @andrej fix TS errors in this file
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Dropdown from "../MySelect";
 import Modal from ".";
 import TextBox from "../TextBox";
 import Button from "../Button";
 import EditModalContext from "../../store/edit-modal";
 
-import styles from "../../styles/components/TaskModalAdd.module.scss";
 import BoardContext from "../../store/board";
+import useInput from "../../hooks/use-input";
+import { getId } from "../../utils/helper";
+
+import styles from "../../styles/components/TaskModalAdd.module.scss";
+import ViewModalContext from "../../store/view-modal";
+
+class Subtask {
+  public readonly id: string = getId();
+  public title: string = "";
+  public isCompleted: boolean = false;
+
+  setTitle(title: string) {
+    this.title = title;
+  }
+
+  complete() {
+    this.isCompleted = true;
+  }
+
+  inComplete() {
+    this.isCompleted = false;
+  }
+}
 
 const EditTaskModal = () => {
-  const { addTask, selectedColumn, columns, selectedTask } =
+  const { updateTask, selectedColumn, columns, selectedTask, setSelectedTask } =
     useContext(BoardContext);
+  const { onViewClose } = useContext(ViewModalContext);
   const { onEditClose } = useContext(EditModalContext);
 
-  console.log("task123", selectedTask.task.subtasks);
+  const [subtasks, setSubtasks] = useState<Subtask[]>([
+    ...selectedTask.task.subtasks,
+    new Subtask(),
+  ]);
+  const [status, setStatus] = useState(selectedTask.task.status);
 
-  const [title, setTitle] = useState(selectedTask.task.title);
-  const [description, setDescription] = useState(selectedTask.task.description);
-  const [subtasks, setSubtasks] = useState<string[] | {}[]>(["1"]);
-  const [status, setStatus] = useState("");
-  // ? Not sure if we should be use forceUpdate, might not be considered the react way of doing things? Not pure..
-  const [, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
+  const {
+    value: title,
+    error: titleError,
+    isValid: isTitleValid,
+    changeHandler: titleChangeHandler,
+    blurHandler: titleBlurHandler,
+    onSubmit: titleSubmit,
+  } = useInput({
+    required: "Can't be empty",
+    initialValue: selectedTask.task.title,
+  });
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleDescriptionChange = (e) => setDescription(e.target.value);
-  const handleSubtasksChange = (subtaskTitle, idx) => {
-    const arr = subtasks;
-    arr[idx] = {
-      title: subtaskTitle,
-      isCompleted: false,
-    };
-    setSubtasks(arr);
-    forceUpdate(); // ? This is hacky but for some reason the setState above is not enough to rerender
-  };
+  const {
+    value: description,
+    error: descriptionError,
+    isValid: isDescriptionValid,
+    changeHandler: descriptionChangeHandler,
+    blurHandler: descriptionBlurHandler,
+    onSubmit: descriptionSubmit,
+  } = useInput({
+    required: "Can't be empty",
+    initialValue: selectedTask.task.description,
+  });
+
+  const isFormValid = isTitleValid && isDescriptionValid;
+
   const handleStatusChange = (column) => setStatus(column);
 
   const addSubtask = () => {
-    const arr = subtasks;
-    arr.push("1");
-    setSubtasks(arr);
+    setSubtasks((tasks) => [...tasks, new Subtask()]);
   };
 
-  const removeSubtask = (idx) => {
-    let arr = subtasks;
-    arr = arr.filter((subtask, index) => index !== idx);
-    setSubtasks(arr);
+  const removeSubtask = (id) => {
+    setSubtasks((tasks) => tasks.filter((t) => t.id !== id));
   };
 
   const saveTask = () => {
-    addTask({
+    // check if subtasks title is empty, if empty, remove it
+    const validSubtasks = subtasks.filter(
+      (subtask) => subtask.title.trim().length > 0
+    );
+    setSelectedTask((prev) => ({
+      ...prev,
+      task: {
+        description: description,
+        status: status,
+        subtasks: validSubtasks,
+        title: title,
+      },
+    }));
+    updateTask({
       description: description,
-      status: selectedColumn.colAddButton ? selectedColumn.column : status,
-      subtasks: subtasks,
+      status: status,
+      subtasks: validSubtasks,
       title: title,
     });
   };
+
+  console.log("task1234", selectedTask);
 
   return (
     <Modal className={styles["modal-wrapper"]} onClose={onEditClose}>
@@ -65,7 +110,13 @@ const EditTaskModal = () => {
 
       <div>
         <h4>Title</h4>
-        <TextBox variant="title" onChange={handleTitleChange} value={title} />
+        <TextBox
+          variant="title"
+          onChange={titleChangeHandler}
+          value={title}
+          onBlur={titleBlurHandler}
+          error={titleError}
+        />
       </div>
 
       <div>
@@ -74,16 +125,16 @@ const EditTaskModal = () => {
           variant="description"
           placeholder="e.g. It’s always good to take a break. This 15 minute break will 
           recharge the batteries a little."
-          onChange={handleDescriptionChange}
+          onChange={descriptionChangeHandler}
           value={description}
+          onBlur={descriptionBlurHandler}
+          error={descriptionError}
         />
       </div>
 
       <div className={styles["modal-wrapper__subtasks"]}>
         <h4>Subtasks</h4>
-        {selectedTask.task.subtasks.map((subtask, idx) => {
-          console.log(subtask.title);
-
+        {subtasks.map((subtask, idx) => {
           return (
             <TextBox
               key={idx}
@@ -91,8 +142,14 @@ const EditTaskModal = () => {
               value={subtask.title}
               placeholder="e.g. Make coffee"
               variant="subtask"
-              onChange={handleSubtasksChange}
-              removeSubtask={() => removeSubtask(idx)}
+              onChange={(e) => {
+                setSubtasks((tasks) => {
+                  const task = tasks.find((t) => t.id === subtask.id);
+                  task.setTitle(e.target.value);
+                  return [...tasks];
+                });
+              }}
+              removeSubtask={() => removeSubtask(subtask.id)}
             />
           );
         })}
@@ -103,7 +160,6 @@ const EditTaskModal = () => {
             fullWidth={true}
             className={styles["secondary-button"]}
             onClick={() => {
-              forceUpdate();
               addSubtask();
             }}
           >
@@ -117,8 +173,8 @@ const EditTaskModal = () => {
           <h4 className={styles["modal-wrapper__status"]}>Status</h4>
           <Dropdown
             onChange={handleStatusChange}
-            defaultValue={selectedColumn.column}
-            options={columns?.map((column) => {
+            defaultValue={status}
+            options={columns.map((column) => {
               return { value: column.name.toLowerCase(), label: column.name };
             })}
           />
@@ -126,8 +182,11 @@ const EditTaskModal = () => {
       )}
       <Button
         onClick={() => {
-          saveTask();
-          onAddClose();
+          titleSubmit();
+          descriptionSubmit();
+          isFormValid && saveTask();
+          isFormValid && onEditClose();
+          isFormValid && onViewClose();
         }}
       >
         <span>Save Changes</span>

@@ -61,13 +61,15 @@ const MySelect = ({ defaultValue = "", options, onChange }: PropTypes) => {
     }),
   };
 
+  console.log("defaultValue", defaultValue);
+
   return (
     <Select
       isSearchable={false}
       placeholder="Select a column..."
       defaultValue={{ value: defaultValue.toLowerCase(), label: defaultValue }}
       onChange={(option) => {
-        onChange(option);
+        onChange(option.label);
       }}
       options={options}
       styles={colorStyles}
