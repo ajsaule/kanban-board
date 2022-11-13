@@ -1,13 +1,18 @@
 .column {
-  min-width: 290px;
+  min-width: 320px;
   overflow: scroll; // todo: can we hide overflow on columns and show it only on hover, with a smooth fade in animation?
 
-  .column-heading {
+  padding: 1rem;
+
+  &.draggable {
+    background-color: var(--color-medium-grey-opacity);
+  }
+
+  &__heading {
     padding-bottom: 5px;
     position: sticky;
     top: 0;
     display: flex;
-    background-color: var(--color-bg);
     color: var(--color-medium-grey);
     font-size: 1.2rem;
     line-height: 1.5rem;
