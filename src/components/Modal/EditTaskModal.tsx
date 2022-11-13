@@ -1,4 +1,3 @@
-// @ts-nocheck
 // todo: @andrej fix TS errors in this file
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import Dropdown from "../MySelect";
@@ -8,35 +7,16 @@ import Button from "../Button";
 import EditModalContext from "../../store/edit-modal";
 
 import BoardContext from "../../store/board";
-import useInput from "../../hooks/use-input";
-import { getId } from "../../utils/helper";
+import { Subtask, Task } from "../../models";
+import AddModalContext from "../../store/add-modal";
 
-import styles from "../../styles/components/TaskModalAdd.module.scss";
-import ViewModalContext from "../../store/view-modal";
-
-class Subtask {
-  public readonly id: string = getId();
-  public title: string = "";
-  public isCompleted: boolean = false;
-
-  setTitle(title: string) {
-    this.title = title;
-  }
-
-  complete() {
-    this.isCompleted = true;
-  }
-
-  inComplete() {
-    this.isCompleted = false;
-  }
-}
 
 const EditTaskModal = () => {
   const { updateTask, selectedColumn, columns, selectedTask, setSelectedTask } =
     useContext(BoardContext);
   const { onViewClose } = useContext(ViewModalContext);
   const { onEditClose } = useContext(EditModalContext);
+  const { onAddClose } = useContext(AddModalContext);
 
   const [subtasks, setSubtasks] = useState<Subtask[]>([
     ...selectedTask.task.subtasks,
@@ -71,12 +51,36 @@ const EditTaskModal = () => {
   const isFormValid = isTitleValid && isDescriptionValid;
 
   const handleStatusChange = (column) => setStatus(column);
+  console.log("task123", selectedTask.task.subtasks);
+
+  const [title, setTitle] = useState(selectedTask.task.title);
+  const [description, setDescription] = useState(selectedTask.task.description);
+  const [subtasks, setSubtasks] = useState<Subtask[] | []>([new Subtask()]);
+  const [status, setStatus] = useState("");
+  // ? Not sure if we should be use forceUpdate, might not be considered the react way of doing things? Not pure..
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setDescription(e.target.value);
+
+  const handleSubtasksChange = (e, subtask, subtaskTitle, idx) => {
+    setSubtasks((tasks) => {
+      const task = tasks.find((t) => t.id === subtask.id);
+      if (task) task.title = e.target.value;
+      return [...tasks];
+    });
+  };
+  const handleStatusChange = (columnName: string) => setStatus(columnName);
 
   const addSubtask = () => {
     setSubtasks((tasks) => [...tasks, new Subtask()]);
   };
 
-  const removeSubtask = (id) => {
+  const removeSubtask = (id: string) => {
     setSubtasks((tasks) => tasks.filter((t) => t.id !== id));
   };
 
@@ -142,14 +146,8 @@ const EditTaskModal = () => {
               value={subtask.title}
               placeholder="e.g. Make coffee"
               variant="subtask"
-              onChange={(e) => {
-                setSubtasks((tasks) => {
-                  const task = tasks.find((t) => t.id === subtask.id);
-                  task.setTitle(e.target.value);
-                  return [...tasks];
-                });
-              }}
-              removeSubtask={() => removeSubtask(subtask.id)}
+              onChange={(e) => handleSubtasksChange(e, subtask)}
+              removeSubtask={() => removeSubtask(idx)}
             />
           );
         })}

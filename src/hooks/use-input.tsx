@@ -23,14 +23,7 @@ const useInput = ({ required, validate, initialValue = "" }: Props) => {
 
   error = (!isValid && isTouched && required) || "";
 
-  const onSubmit = () => {
-    setIsTouched(true);
-    isValid = isValidCheck(value);
-  };
-
-  const blurHandler = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
-  ) => {
+  const blurHandler = () => {
     setIsTouched(true);
   };
 
@@ -50,7 +43,6 @@ const useInput = ({ required, validate, initialValue = "" }: Props) => {
     reset,
     blurHandler,
     changeHandler,
-    onSubmit,
   };
 };
 

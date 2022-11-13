@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SubtaskIcon from "./svgs/SubtaskIcon";
 import styles from "../styles/components/TextBox.module.scss";
 
